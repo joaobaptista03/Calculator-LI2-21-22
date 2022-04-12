@@ -43,7 +43,7 @@ bool push(STACK *s, int elem) {
  */
 int pop (STACK *s) {
     if (s->sp == EPT_STACK) {
-        printf("Stack is empty!\n");
+        // printf("Stack is empty!\n");
         return EPT_STACK;
     };
 

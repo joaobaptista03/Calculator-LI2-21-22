@@ -80,6 +80,11 @@ bool expo (STACK *s, char *token) {
         int x = pop(s); 
         int y = pop(s);
 
+        if (x == 0) {
+            push (s, 1);
+            return true;
+        }
+        
         int y2 = y;
          
         for (; x > 1; x--) {
