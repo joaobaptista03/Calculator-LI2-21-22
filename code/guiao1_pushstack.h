@@ -80,6 +80,48 @@ bool divi (STACK *s, char *token);
 
 /**
  *
+ * Este é o header da função que executa a operação #, dada a stack e caso o token seja "#".
+ * 
+ */
+bool exp (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação %, dada a stack e caso o token seja "%".
+ * 
+ */
+bool mod (STACK *s, char *token)
+
+/**
+ *
+ * Este é o header da função que executa a operação ^, dada a stack e caso o token seja "^".
+ * 
+ */
+bool xor (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação |, dada a stack e caso o token seja "|".
+ * 
+ */
+bool or (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação &, dada a stack e caso o token seja "&".
+ * 
+ */
+bool and (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação ~, dada a stack e caso o token seja "~".
+ * 
+ */
+bool not (STACK *s, char *token);
+
+/**
+ *
  * Este é o header da função que decide que operação executar, dada a stack e um token.
  * 
  */

@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 #include "guiao1_pushstack.h"
 
 /**
@@ -72,6 +73,95 @@ bool divi (STACK *s, char *token) {
 
 /**
  *
+ * Esta é a função que executa a operação #, dada a stack e caso o token seja "#".
+ * 
+ */
+bool exp (STACK *s, char *token) {
+    if (strcmp(token, "/") == 0) {
+        int x = pop(s);
+        int y = pop(s);
+        push(s, pow(y,x));
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação %, dada a stack e caso o token seja "%".
+ * 
+ */
+bool mod (STACK *s, char *token) {
+    if (strcmp(token, "/") == 0) {
+        int x = pop(s);
+        int y = pop(s);
+        push(s, y % x);
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação ^, dada a stack e caso o token seja "^".
+ * 
+ */
+bool xor (STACK *s, char *token) {
+    if (strcmp(token, "^") == 0) {
+        int x = pop(s);
+        int y = pop(s);
+        push(s, y ^ x);
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação |, dada a stack e caso o token seja "|".
+ * 
+ */
+bool or (STACK *s, char *token) {
+    if (strcmp(token, "|") == 0) {
+        int x = pop(s);
+        int y = pop(s);
+        push(s, y | x);
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação &, dada a stack e caso o token seja "&".
+ * 
+ */
+bool and (STACK *s, char *token) {
+    if (strcmp(token, "|") == 0) {
+        int x = pop(s);
+        int y = pop(s);
+        push(s, y & x);
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação ~, dada a stack e caso o token seja "~".
+ * 
+ */
+bool not (STACK *s, char *token) {
+    if (strcmp(token, "|") == 0) {
+        int x = pop(s);
+        push(s, ~x);
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
  * Esta é a função que é utilizada para colocar os valores na stack, dada a stack e um token diferente de um token de operação.
  * 
  */
@@ -88,5 +178,5 @@ bool val (STACK *s, char *token) {
  * 
  */
 void handle (STACK *s, char *token) {
-    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || val(s, token)) {};
+    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || xor(s, token) || or(s, token) || and(s, token) || not(s, token) || val(s, token)) {};
 }
