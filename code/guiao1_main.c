@@ -18,11 +18,11 @@
  * Executa as operações lidas usando as funções definidas nos outros ficheiros.  
  */
 int main() {
-    STACK *s = new_stack(MAX_STACK);
+    STACK *s = new_stack(1000);
     char line[BUFSIZ];
     char token[BUFSIZ];
     if (fgets (line, BUFSIZ, stdin) != NULL) {
-        while (sscanf (line, "%s %[^\n]", token, line) == 2) {handle (s, token);
+        while (sscanf (line, "%s %[^\n]", token, line) == 2) handle (s, token);
         handle (s, token);
         for (int i = 0; i <= s->sp; i++) printf ("%d", s->stack[i]);
         printf("\n");

@@ -7,18 +7,12 @@
 
 #include <limits.h>
 
-/** 
- * As linhas seguintes definem as constantes usadas na stack:
- */
-#define MAX_STACK 1000  /**<MAX_STACK é o tamanho máximo da stack */ 
-#define EPT_STACK -1 /**<EPT_STACK é o stack pointer quando a stack está vazia */
-
 /**
  *
  * Esta struct define o que é uma STACK : 
  */
 typedef struct {
-    int stack[MAX_STACK]; /**<Stack: Uma array de inteiros*/ 
+    int stack[1000]; /**<Stack: Uma array de inteiros*/ 
     int sp; /**<SP: Um apontador para o último elmento da stack*/
 } STACK;
 
@@ -34,7 +28,7 @@ STACK *new_stack(int size);
  * Este é o header da função que adiciona algo à stack, dado uma stack e um elemento.
  * 
  */
-bool push (STACK *s, int elem);
+void push (STACK *s, int elem);
 
 /**
  *

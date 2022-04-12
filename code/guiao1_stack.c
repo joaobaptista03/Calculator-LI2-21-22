@@ -27,13 +27,9 @@ STACK *new_stack(int size) {
  * Este é a função que adiciona algo à stack, dado uma stack e um elemento.
  * 
  */
-bool push(STACK *s, int elem) {
-    if (s->sp >= MAX_STACK) return false;
-    
+void push(STACK *s, int elem) {
     (s->sp)++;
     s->stack[s->sp] = elem;
-    //printf("Pushed %d to Stack.\n", elem);
-    return true;
 }
 
 /**
@@ -42,13 +38,7 @@ bool push(STACK *s, int elem) {
  * 
  */
 int pop (STACK *s) {
-    if (s->sp == EPT_STACK) {
-        // printf("Stack is empty!\n");
-        return EPT_STACK;
-    };
-
     int r = s->stack[s->sp];
     s->sp--;
-    //printf("Popped %d from Stack\n", r);
     return r;
 }
