@@ -22,9 +22,7 @@ int main() {
     char line[BUFSIZ];
     char token[BUFSIZ];
     if (fgets (line, BUFSIZ, stdin) != NULL) {
-        while (sscanf (line, "%s %[^\n]", token, line) == 2) {
-            handle (s, token);
-        }
+        while (sscanf (line, "%s %[^\n]", token, line) == 2) {handle (s, token);
         handle (s, token);
         for (int i = 0; i <= s->sp; i++) printf ("%d", s->stack[i]);
         printf("\n");

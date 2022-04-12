@@ -14,7 +14,7 @@
 #define EPT_STACK -1 /**<EPT_STACK é o stack pointer quando a stack está vazia */
 
 /**
- * \struct 
+ *
  * Esta struct define o que é uma STACK : 
  */
 typedef struct {
