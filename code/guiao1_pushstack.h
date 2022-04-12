@@ -66,6 +66,20 @@ bool sub (STACK *s, char *token);
 
 /**
  *
+ * Este é o header da função que executa a operação (, dada a stack e caso o token seja "(".
+ * 
+ */
+bool dec (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação ), dada a stack e caso o token seja ")".
+ * 
+ */
+bool inc (STACK *s, char *token);
+
+/**
+ *
  * Este é o header da função que é utilizada para colocar os valores na stack, dada a stack e um token diferente de um token de operação.
  * 
  */
@@ -83,14 +97,14 @@ bool divi (STACK *s, char *token);
  * Este é o header da função que executa a operação #, dada a stack e caso o token seja "#".
  * 
  */
-bool exp (STACK *s, char *token);
+bool expo (STACK *s, char *token);
 
 /**
  *
  * Este é o header da função que executa a operação %, dada a stack e caso o token seja "%".
  * 
  */
-bool mod (STACK *s, char *token)
+bool mod (STACK *s, char *token);
 
 /**
  *

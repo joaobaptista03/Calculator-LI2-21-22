@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include <math.h>
 #include "guiao1_pushstack.h"
 
 /**
@@ -76,11 +75,18 @@ bool divi (STACK *s, char *token) {
  * Esta é a função que executa a operação #, dada a stack e caso o token seja "#".
  * 
  */
-bool exp (STACK *s, char *token) {
-    if (strcmp(token, "/") == 0) {
-        int x = pop(s);
+bool expo (STACK *s, char *token) {
+    if (strcmp(token, "#") == 0) {
+        int x = pop(s); 
         int y = pop(s);
-        push(s, pow(y,x));
+
+        int y2 = y;
+         
+        for (; x > 1; x--) {
+            y *= y2;
+        }
+
+        push(s, y);
         return true;
     }
     return false;
@@ -92,7 +98,7 @@ bool exp (STACK *s, char *token) {
  * 
  */
 bool mod (STACK *s, char *token) {
-    if (strcmp(token, "/") == 0) {
+    if (strcmp(token, "%") == 0) {
         int x = pop(s);
         int y = pop(s);
         push(s, y % x);
@@ -137,7 +143,7 @@ bool or (STACK *s, char *token) {
  * 
  */
 bool and (STACK *s, char *token) {
-    if (strcmp(token, "|") == 0) {
+    if (strcmp(token, "&") == 0) {
         int x = pop(s);
         int y = pop(s);
         push(s, y & x);
@@ -152,9 +158,37 @@ bool and (STACK *s, char *token) {
  * 
  */
 bool not (STACK *s, char *token) {
-    if (strcmp(token, "|") == 0) {
+    if (strcmp(token, "~") == 0) {
         int x = pop(s);
         push(s, ~x);
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação (, dada a stack e caso o token seja "(".
+ * 
+ */
+bool dec (STACK *s, char *token) {
+    if (strcmp(token, "(") == 0) {
+        int x = pop(s);
+        push(s, x - 1);
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação ), dada a stack e caso o token seja ")".
+ * 
+ */
+bool inc (STACK *s, char *token) {
+    if (strcmp(token, ")") == 0) {
+        int x = pop(s);
+        push(s, x + 1);
         return true;
     }
     return false;
@@ -178,5 +212,5 @@ bool val (STACK *s, char *token) {
  * 
  */
 void handle (STACK *s, char *token) {
-    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || xor(s, token) || or(s, token) || and(s, token) || not(s, token) || val(s, token)) {};
+    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || xor(s, token) || or(s, token) || and(s, token) || not(s, token) || mod(s, token) || dec(s, token) || inc (s, token) || expo (s, token) || val(s, token)) {};
 }
