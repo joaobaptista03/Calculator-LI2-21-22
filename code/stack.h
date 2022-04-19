@@ -10,10 +10,33 @@
 
 /**
  *
+ * Este typedef enumera o tipo inserido, long corresponde a 1, double a 2, char a 3 e string a 4 : 
+ */
+typedef enum {
+    LONG = 1,
+    DOUBLE = 2,
+    CHAR = 3,
+    STRING = 4,
+} TYPE ;
+
+typedef struct data {
+    TYPE type;
+
+    union {
+        long LONG;
+        double DOUBLE;
+        char CHAR;
+        char* STRING;
+    } elem;
+} DATA;
+
+/**
+ *
  * Esta struct define o que é uma STACK : 
  */
 typedef struct {
-    int stack[1000]; /**<Stack: Uma array de inteiros*/ 
+    //int stack[1000]; /**<Stack: Uma array de inteiros*/ 
+    DATA stack [1000];
     int sp; /**<SP: Um apontador para o último elmento da stack*/
 } STACK;
 

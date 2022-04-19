@@ -5,6 +5,7 @@
  */
 
 #include <stdio.h>
+#include <assert.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -21,12 +22,11 @@ int main() {
     STACK *s = new_stack(1000);
     char line[BUFSIZ];
     char token[BUFSIZ];
-    if (fgets (line, BUFSIZ, stdin) != NULL) {
-        while (sscanf (line, "%s %[^\n]", token, line) == 2) handle (s, token);
-        handle (s, token);
-        for (int i = 0; i <= s->sp; i++) printf ("%d", s->stack[i]);
-        printf("\n");
-    }
+    assert (fgets (line, BUFSIZ, stdin) != NULL);
+    while (sscanf (line, "%s %[^\n]", token, line) == 2) handle (s, token);
+    handle (s, token);
+    for (int i = 0; i <= s->sp; i++) printf ("%d", s->stack[i]);
+    printf("\n");
     free(s);
     return 0;
 }
