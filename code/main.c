@@ -8,7 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "guiao1_pushstack.h"
+#include "stack.h"
 
 /**
  * Esta é a função principal do programa que:
@@ -31,4 +31,4 @@ int main() {
     return 0;
 }
 
-// gcc -Wall -Wextra -pedantic-errors -O2 .\guiao1_operations.c .\guiao1_pushstack.h .\guiao1_stack.c .\guiao1_main.c -lm
+// gcc -Wall -Wextra -pedantic-errors -O2 .\operations.c .\pushstack.h .\stack.c .\main.c -lm
