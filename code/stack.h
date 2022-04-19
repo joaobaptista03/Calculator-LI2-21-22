@@ -1,7 +1,7 @@
 /**
  * @file stack.h
  * 
- * Este ficheiro contêm as assinaturas das funçãos do ficheiro "guiao1_stack.c" e "guiao1_operations.c".
+ * Este ficheiro contêm as assinaturas das funçãos do ficheiro "stack.c" e "operations.c".
  * 
  */
 
