@@ -32,4 +32,4 @@ int main() {
 }
 
 // Comando gcc (tem de estar na pasta code)
-// gcc -Wall -Wextra -pedantic-errors -O2 .\operations.c .\pushstack.h .\stack.c .\main.c -lm
+// gcc -Wall -Wextra -pedantic-errors -O2 .\operations.c .\stack.h .\stack.c .\main.c -lm
