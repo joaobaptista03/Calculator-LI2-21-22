@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "guiao1_pushstack.h"
+#include "stack.h"
 
 /**
  *
