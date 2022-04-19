@@ -30,3 +30,5 @@ int main() {
     free(s);
     return 0;
 }
+
+// gcc -Wall -Wextra -pedantic-errors -O2 .\guiao1_operations.c .\guiao1_pushstack.h .\guiao1_stack.c .\guiao1_main.c -lm
