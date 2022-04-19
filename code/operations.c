@@ -1,5 +1,5 @@
 /**
- * @file guiao1_operations.c
+ * @file operations.c
  * 
  * Este ficheiro contêm o conteúdo das funções relacionadas com operações cujo header está no ficheiro "guiao1_pushstack.h".
  * 

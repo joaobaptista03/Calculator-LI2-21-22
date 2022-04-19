@@ -1,5 +1,5 @@
 /**
- * @file guiao1_stack.c
+ * @file stack.c
  * 
  * Este ficheiro contêm o conteúdo das funções relacionadas com a stack cujo header está no ficheiro "guiao1_pushstack.h".
  * 

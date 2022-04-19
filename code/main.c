@@ -1,5 +1,5 @@
 /**
- * @file guiao1_main.c
+ * @file main.c
  * Este ficheiro contêm a função main que é a função principal do programa.
  * 
  */
