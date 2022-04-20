@@ -211,6 +211,12 @@ bool val (STACK *s, char *token) {
     return true;
 }
 
+bool integer (STACK *s, char *token) {
+    if (strcmp(token, "i") == 0) {
+        
+    } 
+}
+
 /**
  *
  * Esta função que decide que operação executar, dada a stack e um token.

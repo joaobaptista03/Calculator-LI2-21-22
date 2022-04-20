@@ -22,14 +22,22 @@ int main() {
     STACK *s = new_stack(1000);
     char line[BUFSIZ];
     char token[BUFSIZ];
+    int reads = 0;
     assert (fgets (line, BUFSIZ, stdin) != NULL);
-    while (sscanf (line, "%s %[^\n]", token, line) == 2) handle (s, token);
+    
+    while (sscanf (line, "%s %[^\n]", token, line) == 2) {
+
+        handle (s, token);
+    }
     handle (s, token);
+
     for (int i = 0; i <= s->sp; i++) printf ("%d", s->stack[i]);
     printf("\n");
     free(s);
     return 0;
 }
+
+
 
 // Comando gcc (tem de estar na pasta code)
 // gcc -Wall -Wextra -pedantic-errors -O2 .\operations.c .\stack.h .\stack.c .\main.c -lm
