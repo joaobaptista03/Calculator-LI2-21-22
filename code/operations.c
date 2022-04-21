@@ -17,9 +17,32 @@
  */
 bool add (STACK *s, char *token) {
     if (strcmp(token, "+") == 0) {
-        int x = pop(s);
-        int y = pop(s);
-        push(s, y + x);
+        char str[30];
+        DATA dx = pop(s);
+        DATA dy = pop(s);
+        DATA d;
+        
+        if (dx.type == 1 && dy.type == 1) {
+            sprintf(str, "%ld", dx.elem.LONG + dy.elem.LONG); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 2 && dy.type == 2) {
+            sprintf(str, "%f", dx.elem.DOUBLE + dy.elem.DOUBLE); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 1 && dy.type == 2) {
+            sprintf(str, "%f", dx.elem.LONG + dy.elem.DOUBLE); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 2 && dy.type == 1) {
+            sprintf(str, "%f", dx.elem.DOUBLE + dy.elem.LONG); 
+            d = create_data(str);
+        }
+
+        push(s, d);
         return true;
     }
     return false;
@@ -32,9 +55,32 @@ bool add (STACK *s, char *token) {
  */
 bool mult (STACK *s, char *token) {
     if (strcmp(token, "*") == 0) {
-        int x = pop(s);
-        int y = pop(s);
-        push(s, y * x);
+        char str[30];
+        DATA dx = pop(s);
+        DATA dy = pop(s);
+        DATA d;
+        
+        if (dx.type == 1 && dy.type == 1) {
+            sprintf(str, "%ld", dx.elem.LONG * dy.elem.LONG); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 2 && dy.type == 2) {
+            sprintf(str, "%f", dx.elem.DOUBLE * dy.elem.DOUBLE); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 1 && dy.type == 2) {
+            sprintf(str, "%f", dx.elem.LONG * dy.elem.DOUBLE); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 2 && dy.type == 1) {
+            sprintf(str, "%f", dx.elem.DOUBLE * dy.elem.LONG); 
+            d = create_data(str);
+        }
+
+        push(s, d);
         return true;
     }
     return false;
@@ -47,9 +93,32 @@ bool mult (STACK *s, char *token) {
  */
 bool sub (STACK *s, char *token) {
     if (strcmp(token, "-") == 0) {
-        int x = pop(s);
-        int y = pop(s);
-        push(s, y - x);
+        char str[30];
+        DATA dx = pop(s);
+        DATA dy = pop(s);
+        DATA d;
+        
+        if (dx.type == 1 && dy.type == 1) {
+            sprintf(str, "%ld", dy.elem.LONG - dx.elem.LONG); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 2 && dy.type == 2) {
+            sprintf(str, "%f", dy.elem.DOUBLE - dx.elem.DOUBLE); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 1 && dy.type == 2) {
+            sprintf(str, "%f", dy.elem.LONG - dx.elem.DOUBLE); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 2 && dy.type == 1) {
+            sprintf(str, "%f", dy.elem.DOUBLE - dx.elem.LONG); 
+            d = create_data(str);
+        }
+
+        push(s, d);
         return true;
     }
     return false;
@@ -62,9 +131,32 @@ bool sub (STACK *s, char *token) {
  */
 bool divi (STACK *s, char *token) {
     if (strcmp(token, "/") == 0) {
-        int x = pop(s);
-        int y = pop(s);
-        push(s, y / x);
+        char str[30];
+        DATA dx = pop(s);
+        DATA dy = pop(s);
+        DATA d;
+        
+        if (dx.type == 1 && dy.type == 1) {
+            sprintf(str, "%ld", dy.elem.LONG / dx.elem.LONG); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 2 && dy.type == 2) {
+            sprintf(str, "%f", dy.elem.DOUBLE / dx.elem.DOUBLE); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 1 && dy.type == 2) {
+            sprintf(str, "%f", dy.elem.LONG / dx.elem.DOUBLE); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 2 && dy.type == 1) {
+            sprintf(str, "%f", dy.elem.DOUBLE / dx.elem.LONG); 
+            d = create_data(str);
+        }
+
+        push(s, d);
         return true;
     }
     return false;
@@ -77,21 +169,63 @@ bool divi (STACK *s, char *token) {
  */
 bool expo (STACK *s, char *token) {
     if (strcmp(token, "#") == 0) {
-        int x = pop(s); 
-        int y = pop(s);
+        char str[30];
+        DATA dx = pop(s);
+        DATA dy = pop(s);
+        DATA d;
 
-        if (x == 0) {
-            push (s, 1);
+        if (dx.elem.LONG == 0) {
+            push (s, create_data("1"));
             return true;
         }
-        
-        int y2 = y;
-         
-        for (; x > 1; x--) {
-            y *= y2;
+
+        if (dx.type == 1 && dy.type == 1) {
+
+            int y2 = dy.elem.LONG;
+            for (; dx.elem.LONG > 1; dx.elem.LONG--) {
+                dy.elem.LONG *= y2;
+            }
+
+            sprintf(str, "%ld", dy.elem.LONG); 
+            d = create_data(str);
         }
 
-        push(s, y);
+        if (dx.type == 2 && dy.type == 2) {
+
+            int y2 = dy.elem.DOUBLE;
+            for (; dx.elem.DOUBLE > 1; dx.elem.DOUBLE--) {
+                dy.elem.DOUBLE *= y2;
+            }
+
+            sprintf(str, "%f", dy.elem.DOUBLE); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 1 && dy.type == 2) {
+
+            int y2 = dy.elem.DOUBLE;
+            for (; dx.elem.LONG > 1; dx.elem.LONG--) {
+                dy.elem.DOUBLE *= y2;
+            }
+
+            sprintf(str, "%f", dy.elem.DOUBLE); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 2 && dy.type == 1) {
+
+            double yy = dy.elem.LONG;
+
+            double y2 = yy;
+            for (; dx.elem.DOUBLE > 1; dx.elem.DOUBLE--) {
+                yy *= y2;
+            }
+
+            sprintf(str, "%f", yy); 
+            d = create_data(str);
+        }
+
+        push(s, d);
         return true;
     }
     return false;
@@ -104,9 +238,15 @@ bool expo (STACK *s, char *token) {
  */
 bool mod (STACK *s, char *token) {
     if (strcmp(token, "%") == 0) {
-        int x = pop(s);
-        int y = pop(s);
-        push(s, y % x);
+        char str[30];
+        DATA dx = pop(s);
+        DATA dy = pop(s);
+        DATA d;
+        
+        sprintf(str, "%ld", dy.elem.LONG % dx.elem.LONG); 
+        d = create_data(str);
+
+        push(s, d);
         return true;
     }
     return false;
@@ -119,9 +259,15 @@ bool mod (STACK *s, char *token) {
  */
 bool xor (STACK *s, char *token) {
     if (strcmp(token, "^") == 0) {
-        int x = pop(s);
-        int y = pop(s);
-        push(s, y ^ x);
+        char str[30];
+        DATA dx = pop(s);
+        DATA dy = pop(s);
+        DATA d;
+
+        sprintf(str, "%ld", dy.elem.LONG ^ dx.elem.LONG); 
+        d = create_data(str);
+
+        push(s, d);
         return true;
     }
     return false;
@@ -134,9 +280,15 @@ bool xor (STACK *s, char *token) {
  */
 bool or (STACK *s, char *token) {
     if (strcmp(token, "|") == 0) {
-        int x = pop(s);
-        int y = pop(s);
-        push(s, y | x);
+        char str[30];
+        DATA dx = pop(s);
+        DATA dy = pop(s);
+        DATA d;
+
+        sprintf(str, "%ld", dy.elem.LONG | dx.elem.LONG); 
+        d = create_data(str);
+
+        push(s, d);
         return true;
     }
     return false;
@@ -149,9 +301,15 @@ bool or (STACK *s, char *token) {
  */
 bool and (STACK *s, char *token) {
     if (strcmp(token, "&") == 0) {
-        int x = pop(s);
-        int y = pop(s);
-        push(s, y & x);
+        char str[30];
+        DATA dx = pop(s);
+        DATA dy = pop(s);
+        DATA d;
+
+        sprintf(str, "%ld", dy.elem.LONG & dx.elem.LONG); 
+        d = create_data(str);
+
+        push(s, d);
         return true;
     }
     return false;
@@ -164,8 +322,14 @@ bool and (STACK *s, char *token) {
  */
 bool not (STACK *s, char *token) {
     if (strcmp(token, "~") == 0) {
-        int x = pop(s);
-        push(s, ~x);
+        char str[30];
+        DATA dx = pop(s);
+        DATA d;
+
+        sprintf(str, "%ld", ~dx.elem.LONG); 
+        d = create_data(str);
+
+        push(s, d);
         return true;
     }
     return false;
@@ -178,8 +342,21 @@ bool not (STACK *s, char *token) {
  */
 bool dec (STACK *s, char *token) {
     if (strcmp(token, "(") == 0) {
-        int x = pop(s);
-        push(s, x - 1);
+        char str[30];
+        DATA dx = pop(s);
+        DATA d;
+        
+        if (dx.type == 1) {
+            sprintf(str, "%ld", dx.elem.LONG - 1); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 2) {
+            sprintf(str, "%f", dx.elem.DOUBLE - 1.0); 
+            d = create_data(str);
+        }
+
+        push(s, d);
         return true;
     }
     return false;
@@ -192,8 +369,21 @@ bool dec (STACK *s, char *token) {
  */
 bool inc (STACK *s, char *token) {
     if (strcmp(token, ")") == 0) {
-        int x = pop(s);
-        push(s, x + 1);
+        char str[30];
+        DATA dx = pop(s);
+        DATA d;
+        
+        if (dx.type == 1) {
+            sprintf(str, "%ld", dx.elem.LONG + 1); 
+            d = create_data(str);
+        }
+
+        if (dx.type == 2) {
+            sprintf(str, "%f", dx.elem.DOUBLE + 1.0); 
+            d = create_data(str);
+        }
+
+        push(s, d);
         return true;
     }
     return false;
@@ -205,16 +395,8 @@ bool inc (STACK *s, char *token) {
  * 
  */
 bool val (STACK *s, char *token) {
-    int val;
-    sscanf(token, "%d", &val);
-    push(s, val);
+    push(s, create_data(token));
     return true;
-}
-
-bool integer (STACK *s, char *token) {
-    if (strcmp(token, "i") == 0) {
-        
-    } 
 }
 
 /**

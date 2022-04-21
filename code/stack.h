@@ -19,10 +19,15 @@ typedef enum {
     STRING = 4,
 } TYPE ;
 
+/**
+ *
+ * Este typedef struct corresponde aos elementos da array da stack, sendo que cada struct contém a informação
+ * do tipo desse elemento da stack e uma union com o próprio elemento: 
+ */
 typedef struct data {
     TYPE type;
 
-    union {
+    union elem {
         long LONG;
         double DOUBLE;
         char CHAR;
@@ -34,11 +39,12 @@ typedef struct data {
  *
  * Esta struct define o que é uma STACK : 
  */
-typedef struct {
+typedef struct stack {
     //int stack[1000]; /**<Stack: Uma array de inteiros*/ 
     DATA stack [1000];
     int sp; /**<SP: Um apontador para o último elmento da stack*/
 } STACK;
+
 
 /**
  *
@@ -52,14 +58,14 @@ STACK *new_stack(int size);
  * Este é o header da função que adiciona algo à stack, dado uma stack e um elemento.
  * 
  */
-void push (STACK *s, int elem);
+void push(STACK *s, DATA elem);
 
 /**
  *
  * Este é o header da função que retira o último elemnto adicionado à stack, dada a própria stack.
  * 
  */
-int pop (STACK *s);
+DATA pop (STACK *s);
 
 /**
  *
@@ -158,3 +164,31 @@ bool not (STACK *s, char *token);
  * 
  */
 void handle (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que decide que tipo tem o input dado, dada uma string.
+ * 
+ */
+TYPE data_selector(char a[]);
+
+/**
+ *
+ * Este é o header da função que cria a struct data, dada uma string (token).
+ * 
+ */
+DATA create_data (char a[]);
+
+/**
+ *
+ * Este é o header da função que dá print à stack.
+ * 
+ */
+void print_stack (STACK *s);
+
+/**
+ *
+ * Este é o header da função que dada uma string, remove todos os 0's no fim, caso seja decimal.
+ * 
+ */
+char* delete_zeros (char *a);
