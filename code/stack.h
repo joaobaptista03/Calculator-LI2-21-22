@@ -206,3 +206,38 @@ bool i_command (STACK *s, char *token);
  * 
  */
 bool f_command (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação c, dada a stack e caso o token seja "c".
+ * 
+ */
+bool c_command (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação s, dada a stack e caso o token seja "s".
+ * 
+ */
+bool s_command (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação _, dada a stack e caso o token seja "_".
+ * 
+ */
+bool dup(STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que dada uma string, devolve true caso ela tenha um ponto, caso contrário devolve false.
+ * 
+ */
+bool point(char a[]);
+
+/**
+ *
+ * Este é o header da função que executa a operação \, dada a stack e caso o token seja "\".
+ * 
+ */
+bool exchange_command (STACK *s, char *token);

@@ -55,8 +55,9 @@ TYPE data_selector(char a[]) {
     if (strcmp(a,"0") == 0) return 1;
     char *p;
     if (strtof(a, &p) != 0) {
-        if (round(strtof(a, &p)) == strtof(a, &p)) return 1;
-        return 2;
+
+        if (point(a)) return 2;
+        return 1;
     }
     if (strtol(a, &p, 10) != 0) return 1;
     if (strlen(a) == 1) return 3;
@@ -105,7 +106,7 @@ void print_stack (STACK *s) {
     for (int i = 0; i <= s->sp; i++) {
         if (s->stack[i].type == 1) {
             printf("%ld", s->stack[i].elem.LONG);
-            if (i != s->sp) printf(" ");
+            //if (i != s->sp) printf(" ");
         }
         if (s->stack[i].type == 2) {
             char str[30];
@@ -113,15 +114,15 @@ void print_stack (STACK *s) {
             char str2[30]; 
             strcpy(str2, delete_zeros(str));
             printf("%s", str2);
-            if (i != s->sp) printf(" ");
+            //if (i != s->sp) printf(" ");
         }
         if (s->stack[i].type == 3) {
-            printf("%c ", s->stack[i].elem.CHAR);
-            if (i != s->sp) printf(" ");
+            printf("%c", s->stack[i].elem.CHAR);
+            //if (i != s->sp) printf(" ");
         }
         if (s->stack[i].type == 4) {
-            printf("%s ", s->stack[i].elem.STRING);
-            if (i != s->sp) printf(" ");
+            printf("%s", s->stack[i].elem.STRING);
+            //if (i != s->sp) printf(" ");
         }
     }
     printf("\n");
@@ -133,9 +134,26 @@ void print_stack (STACK *s) {
  * 
  */
 char* delete_zeros (char a[]) {
+    bool p = point(a);
     for(int i = strlen(a)-1; i > 0; i--) {
         if (a[i] == '0') a[i] = '\0';
+        else if (p && a[i] == '.') {
+            a[i] = '\0';
+            return a;
+        }
         else return a;
     }
     return 0;
+}
+
+/**
+ *
+ * Esta é a função que dada uma string, devolve true caso ela tenha um ponto, caso contrário devolve false.
+ * 
+ */
+bool point(char a[]) {
+    for(unsigned int i = 0; i < strlen(a); i++) {
+        if (a[i] == '.') return true;
+    }
+    return false;
 }

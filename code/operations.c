@@ -138,7 +138,7 @@ bool divi (STACK *s, char *token) {
         DATA d;
 
         if (dx.type == 1 && dy.type == 1) {
-            sprintf(str, "%f", (double)dy.elem.LONG / (double)dx.elem.LONG); 
+            sprintf(str, "%ld", dy.elem.LONG / dx.elem.LONG); 
             d = create_data(str);
         }
 
@@ -148,12 +148,14 @@ bool divi (STACK *s, char *token) {
         }
 
         if (dx.type == 1 && dy.type == 2) {
-            sprintf(str, "%f", (double)dy.elem.DOUBLE / dx.elem.LONG); 
+            double r = dy.elem.DOUBLE / dx.elem.LONG;
+            sprintf(str, "%f", r); 
             d = create_data(str);
         }
 
         if (dx.type == 2 && dy.type == 1) {
-            sprintf(str, "%f", dy.elem.LONG / (double)dx.elem.DOUBLE); 
+            double r = dy.elem.LONG / dx.elem.DOUBLE;
+            sprintf(str, "%f", r); 
             d = create_data(str);
         }
 
@@ -425,16 +427,95 @@ bool f_command (STACK *s, char *token) {
         if (s->stack[s->sp].type == 1) {
             char str[30];
             double x = (double)pop(s).elem.LONG;
-            sprintf(str, "%0.7f", x);
+            sprintf(str, "%f", x);
             push(s, create_data(str));
         }
         if (s->stack[s->sp].type == 3) {
             char str[30];
             char x = pop(s).elem.CHAR;
-            sprintf(str, "%.7f", (double)x);
+            sprintf(str, "%f", (double)x);
             push(s, create_data(str));
         }
     return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação c, dada a stack e caso o token seja "c".
+ * 
+ */
+bool c_command (STACK *s, char *token) {
+    if (strcmp(token, "c") == 0) {
+        int x = pop(s).elem.LONG;
+        char str[2];
+        str[0] = x;
+        str[1] = '\0';
+        push(s, create_data(str));
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação s, dada a stack e caso o token seja "s".
+ * 
+ */
+bool s_command (STACK *s, char *token) {
+    if (strcmp(token, "s") == 0) {
+        if (s->stack[s->sp].type == 1) {
+            long int x = pop(s).elem.LONG;
+            char str[30];
+            sprintf(str, "%ld", x);
+            push(s, create_data(str));
+        }
+        if (s->stack[s->sp].type == 2) {
+            double x = pop(s).elem.DOUBLE;
+            char str[30];
+            sprintf(str, "%f", x);
+            push(s, create_data(str));
+        }
+        if (s->stack[s->sp].type == 3) {
+            char x = pop(s).elem.CHAR;
+            char str[2];
+            str[0] = x;
+            str[1] = '\0';
+            push(s, create_data(str));
+        }
+    return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação _, dada a stack e caso o token seja "_".
+ * 
+ */
+bool dup(STACK *s, char *token) {
+    if (strcmp(token, "_") == 0) {
+        DATA d = pop(s);
+        push(s, d);
+        push(s, d);
+    return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação \, dada a stack e caso o token seja "\".
+ * 
+ */
+bool exchange_command (STACK *s, char *token) {
+    if (strcmp(token, "\\") == 0) {
+        DATA x = pop(s);
+        DATA y = pop(s);
+        push(s, x);
+        push(s, y);
+        return true;
     }
     return false;
 }
@@ -455,5 +536,5 @@ bool val (STACK *s, char *token) {
  * 
  */
 void handle (STACK *s, char *token) {
-    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || xor(s, token) || or(s, token) || and(s, token) || not(s, token) || mod(s, token) || dec(s, token) || inc (s, token) || expo (s, token) || i_command(s, token) || f_command(s, token) || val(s, token)) {};
+    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || xor(s, token) || or(s, token) || and(s, token) || not(s, token) || mod(s, token) || dec(s, token) || inc (s, token) || expo (s, token) || i_command(s, token) || f_command(s, token) || c_command(s, token) || s_command(s, token) || dup(s, token) || exchange_command(s, token) || val(s, token)) {};
 }
