@@ -241,3 +241,10 @@ bool point(char a[]);
  * 
  */
 bool exchange_command (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação $, dada a stack e caso o token seja "$".
+ * 
+ */
+bool copy_command (STACK *s, char *token);

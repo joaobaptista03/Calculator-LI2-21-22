@@ -522,6 +522,21 @@ bool exchange_command (STACK *s, char *token) {
 
 /**
  *
+ * Esta é a função que executa a operação $, dada a stack e caso o token seja "$".
+ * 
+ */
+bool copy_command (STACK *s, char *token) {
+    if (strcmp(token, "$") == 0) {
+        int x = pop(s).elem.LONG;
+        DATA y = s->stack[x-1];
+        push(s, y);
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
  * Esta é a função que é utilizada para colocar os valores na stack, dada a stack e um token diferente de um token de operação.
  * 
  */
@@ -536,5 +551,5 @@ bool val (STACK *s, char *token) {
  * 
  */
 void handle (STACK *s, char *token) {
-    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || xor(s, token) || or(s, token) || and(s, token) || not(s, token) || mod(s, token) || dec(s, token) || inc (s, token) || expo (s, token) || i_command(s, token) || f_command(s, token) || c_command(s, token) || s_command(s, token) || dup(s, token) || exchange_command(s, token) || val(s, token)) {};
+    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || xor(s, token) || or(s, token) || and(s, token) || not(s, token) || mod(s, token) || dec(s, token) || inc (s, token) || expo (s, token) || i_command(s, token) || f_command(s, token) || c_command(s, token) || s_command(s, token) || dup(s, token) || exchange_command(s, token) || copy_command(s, token) || val(s, token)) {};
 }
