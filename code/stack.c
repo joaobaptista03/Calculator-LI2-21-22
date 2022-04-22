@@ -103,16 +103,26 @@ DATA create_data (char a[]) {
  */
 void print_stack (STACK *s) {
     for (int i = 0; i <= s->sp; i++) {
-        if (s->stack[i].type == 1) printf("%ld ", s->stack[i].elem.LONG);
+        if (s->stack[i].type == 1) {
+            printf("%ld", s->stack[i].elem.LONG);
+            if (i != s->sp) printf(" ");
+        }
         if (s->stack[i].type == 2) {
             char str[30];
             sprintf(str, "%f", s->stack[i].elem.DOUBLE);
             char str2[30]; 
             strcpy(str2, delete_zeros(str));
             printf("%s", str2);
+            if (i != s->sp) printf(" ");
         }
-        if (s->stack[i].type == 3) printf("%c ", s->stack[i].elem.CHAR);
-        if (s->stack[i].type == 4) printf("%s ", s->stack[i].elem.STRING);
+        if (s->stack[i].type == 3) {
+            printf("%c ", s->stack[i].elem.CHAR);
+            if (i != s->sp) printf(" ");
+        }
+        if (s->stack[i].type == 4) {
+            printf("%s ", s->stack[i].elem.STRING);
+            if (i != s->sp) printf(" ");
+        }
     }
     printf("\n");
 }

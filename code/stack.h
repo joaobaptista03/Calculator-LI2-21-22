@@ -192,3 +192,17 @@ void print_stack (STACK *s);
  * 
  */
 char* delete_zeros (char *a);
+
+/**
+ *
+ * Este é o header da função que executa a operação i, dada a stack e caso o token seja "i".
+ * 
+ */
+bool i_command (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação f, dada a stack e caso o token seja "f".
+ * 
+ */
+bool f_command (STACK *s, char *token);

@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include "stack.h"
 
@@ -135,9 +136,9 @@ bool divi (STACK *s, char *token) {
         DATA dx = pop(s);
         DATA dy = pop(s);
         DATA d;
-        
+
         if (dx.type == 1 && dy.type == 1) {
-            sprintf(str, "%ld", dy.elem.LONG / dx.elem.LONG); 
+            sprintf(str, "%f", (double)dy.elem.LONG / (double)dx.elem.LONG); 
             d = create_data(str);
         }
 
@@ -147,12 +148,12 @@ bool divi (STACK *s, char *token) {
         }
 
         if (dx.type == 1 && dy.type == 2) {
-            sprintf(str, "%f", dy.elem.LONG / dx.elem.DOUBLE); 
+            sprintf(str, "%f", (double)dy.elem.DOUBLE / dx.elem.LONG); 
             d = create_data(str);
         }
 
         if (dx.type == 2 && dy.type == 1) {
-            sprintf(str, "%f", dy.elem.DOUBLE / dx.elem.LONG); 
+            sprintf(str, "%f", dy.elem.LONG / (double)dx.elem.DOUBLE); 
             d = create_data(str);
         }
 
@@ -391,6 +392,55 @@ bool inc (STACK *s, char *token) {
 
 /**
  *
+ * Esta é a função que executa a operação i, dada a stack e caso o token seja "i".
+ * 
+ */
+bool i_command (STACK *s, char *token) {
+    if (strcmp(token, "i") == 0) {
+        if (s->stack[s->sp].type == 2) {
+            char str[30];
+            double x = pop(s).elem.DOUBLE;
+            long int y = (long int)x;
+            sprintf(str, "%ld", y);
+            push(s, create_data(str));
+        }
+        if (s->stack[s->sp].type == 3) {
+            char str[30];
+            char x = pop(s).elem.CHAR;
+            sprintf(str, "%i", x);
+            push(s, create_data(str));
+        }
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação f, dada a stack e caso o token seja "f".
+ * 
+ */
+bool f_command (STACK *s, char *token) {
+    if (strcmp(token, "f") == 0) {
+        if (s->stack[s->sp].type == 1) {
+            char str[30];
+            double x = (double)pop(s).elem.LONG;
+            sprintf(str, "%0.7f", x);
+            push(s, create_data(str));
+        }
+        if (s->stack[s->sp].type == 3) {
+            char str[30];
+            char x = pop(s).elem.CHAR;
+            sprintf(str, "%.7f", (double)x);
+            push(s, create_data(str));
+        }
+    return true;
+    }
+    return false;
+}
+
+/**
+ *
  * Esta é a função que é utilizada para colocar os valores na stack, dada a stack e um token diferente de um token de operação.
  * 
  */
@@ -405,5 +455,5 @@ bool val (STACK *s, char *token) {
  * 
  */
 void handle (STACK *s, char *token) {
-    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || xor(s, token) || or(s, token) || and(s, token) || not(s, token) || mod(s, token) || dec(s, token) || inc (s, token) || expo (s, token) || val(s, token)) {};
+    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || xor(s, token) || or(s, token) || and(s, token) || not(s, token) || mod(s, token) || dec(s, token) || inc (s, token) || expo (s, token) || i_command(s, token) || f_command(s, token) || val(s, token)) {};
 }
