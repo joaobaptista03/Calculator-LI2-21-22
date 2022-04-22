@@ -528,7 +528,7 @@ bool exchange_command (STACK *s, char *token) {
 bool copy_command (STACK *s, char *token) {
     if (strcmp(token, "$") == 0) {
         int x = pop(s).elem.LONG;
-        DATA y = s->stack[x-1];
+        DATA y = s->stack[s->sp - x];
         push(s, y);
         return true;
     }
