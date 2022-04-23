@@ -8,8 +8,9 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include "stack.h"
+
+#include "random_funcs.h"
+#include "val_handle.h"
 
 /**
  * Esta é a função principal do programa que:
@@ -49,4 +50,4 @@ int main() {
 
 
 // Comando gcc (tem de estar na pasta code)
-// gcc -Wall -Wextra -pedantic-errors -O2 .\operations.c .\stack.h .\stack.c .\main.c -lm
+// gcc -Wall -Wextra -pedantic-errors -O2 .\stack.c .\random_funcs.c .\conversions.c .\input_output.c .\math_operations.c .\stack_manipulation.c .\val_handle.c .\main.c -lm

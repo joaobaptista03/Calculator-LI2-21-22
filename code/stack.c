@@ -1,18 +1,16 @@
 /**
  * @file stack.c
  * 
- * Este ficheiro contêm o conteúdo das funções relacionadas com a stack cujo header está no ficheiro "stack.h".
+ * Este ficheiro contêm o conteúdo das funções relacionadas com a stack.
  * 
  */
 
+#include "stack.h"
+#include "random_funcs.h"
+
 #include <stdio.h>
-#include <float.h>
-#include <limits.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <math.h>
-#include "stack.h"
 
 /**
  *
@@ -105,7 +103,6 @@ void print_stack (STACK *s) {
     for (int i = 0; i <= s->sp; i++) {
         if (s->stack[i].type == 1) {
             printf("%ld", s->stack[i].elem.LONG);
-            //if (i != s->sp) printf(" ");
         }
         if (s->stack[i].type == 2) {
             char str[30];
@@ -113,55 +110,13 @@ void print_stack (STACK *s) {
             char str2[30]; 
             strcpy(str2, delete_zeros(str));
             printf("%s", str2);
-            //if (i != s->sp) printf(" ");
         }
         if (s->stack[i].type == 3) {
             printf("%c", s->stack[i].elem.CHAR);
-            //if (i != s->sp) printf(" ");
         }
         if (s->stack[i].type == 4) {
             printf("%s", s->stack[i].elem.STRING);
-            //if (i != s->sp) printf(" ");
         }
     }
     printf("\n");
-}
-
-/**
- *
- * Esta é a função que dada uma string, remove todos os 0's no fim, caso seja decimal.
- * 
- */
-char* delete_zeros (char a[]) {
-    bool p = point(a);
-    for(int i = strlen(a)-1; i > 0; i--) {
-        if (a[i] == '0') a[i] = '\0';
-        else if (p && a[i] == '.') {
-            a[i+1] = '0';
-            //printf("%s", a);
-            return a;
-        }
-        else return a;
-    }
-    return 0;
-}
-
-/**
- *
- * Esta é a função que dada uma string, devolve true caso ela tenha um ponto, caso contrário devolve false.
- * 
- */
-bool point(char a[]) {
-    for(unsigned int i = 0; i < strlen(a); i++) {
-        if (a[i] == '.') return true;
-    }
-    return false;
-}
-
-int count_l(char a[]) {
-    int l = 0;
-    for (unsigned int i = 0; i < strlen(a); i++) {
-        if (a[i] == 'l') l++;
-    }
-    return l;
 }
