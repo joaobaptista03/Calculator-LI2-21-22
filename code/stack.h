@@ -80,7 +80,7 @@ TYPE data_selector(char a[]);
  * Este é o header da função que cria a struct data, dada uma string (token).
  * 
  */
-DATA create_data (char a[]);
+DATA create_data (char a[], TYPE t);
 
 /**
  *

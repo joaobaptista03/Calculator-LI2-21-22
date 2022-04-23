@@ -22,12 +22,12 @@ bool i_command (STACK *s, char *token) {
             double x = pop(s).elem.DOUBLE;
             long int y = (long int)x;
             sprintf(elem, "%ld", y);
-            push(s, create_data(elem));
+            push(s, create_data(elem, 1));
         }
         if (type == 3) {
             char x = pop(s).elem.CHAR;
             sprintf(elem, "%i", x);
-            push(s, create_data(elem));
+            push(s, create_data(elem, 1));
         }
         return true;
     }
@@ -44,13 +44,13 @@ bool f_command (STACK *s, char *token) {
         TYPE type = s->stack[s->sp].type;
         if (type == 1) {
             double x = (double)pop(s).elem.LONG;
-            sprintf(elem, "%f", x);
-            push(s, create_data(elem));
+            sprintf(elem, "%g", x);
+            push(s, create_data(elem, 2));
         }
         if (type == 3) {
             char x = pop(s).elem.CHAR;
-            sprintf(elem, "%f", (double)x);
-            push(s, create_data(elem));
+            sprintf(elem, "%g", (double)x);
+            push(s, create_data(elem, 2));
         }
     return true;
     }
@@ -66,7 +66,7 @@ bool c_command (STACK *s, char *token) {
     if (strcmp(token, "c") == 0) {
         int x = pop(s).elem.LONG;
         char elem2[2] = {x, '\0'};
-        push(s, create_data(elem2));
+        push(s, create_data(elem2, 3));
         return true;
     }
     return false;
@@ -83,19 +83,19 @@ bool s_command (STACK *s, char *token) {
         if (type == 1) {
             long int x = pop(s).elem.LONG;
             sprintf(elem, "%ld", x);
-            push(s, create_data(elem));
+            push(s, create_data(elem, 4));
         }
         if (type == 2) {
             double x = pop(s).elem.DOUBLE;
             sprintf(elem, "%g", x);
-            push(s, create_data(elem));
+            push(s, create_data(elem, 4));
         }
         if (type == 3) {
             char x = pop(s).elem.CHAR;
             char str[2];
             str[0] = x;
             str[1] = '\0';
-            push(s, create_data(str));
+            push(s, create_data(str, 4));
         }
     return true;
     }

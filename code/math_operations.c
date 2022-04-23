@@ -25,22 +25,22 @@ bool add (STACK *s, char *token) {
         
         if (dx.type == 1 && dy.type == 1) {
             sprintf(str, "%ld", dx.elem.LONG + dy.elem.LONG); 
-            d = create_data(str);
+            d = create_data(str, 1);
         }
 
         if (dx.type == 2 && dy.type == 2) {
             sprintf(str, "%g", dx.elem.DOUBLE + dy.elem.DOUBLE); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         if (dx.type == 1 && dy.type == 2) {
             sprintf(str, "%g", dx.elem.LONG + dy.elem.DOUBLE); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         if (dx.type == 2 && dy.type == 1) {
             sprintf(str, "%g", dx.elem.DOUBLE + dy.elem.LONG); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         push(s, d);
@@ -63,22 +63,22 @@ bool sub (STACK *s, char *token) {
         
         if (dx.type == 1 && dy.type == 1) {
             sprintf(str, "%ld", dy.elem.LONG - dx.elem.LONG); 
-            d = create_data(str);
+            d = create_data(str, 1);
         }
 
         if (dx.type == 2 && dy.type == 2) {
             sprintf(str, "%g", dy.elem.DOUBLE - dx.elem.DOUBLE); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         if (dx.type == 1 && dy.type == 2) {
             sprintf(str, "%g", dy.elem.LONG - dx.elem.DOUBLE); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         if (dx.type == 2 && dy.type == 1) {
             sprintf(str, "%g", dy.elem.DOUBLE - dx.elem.LONG); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         push(s, d);
@@ -101,22 +101,22 @@ bool mult (STACK *s, char *token) {
         
         if (dx.type == 1 && dy.type == 1) {
             sprintf(str, "%ld", dx.elem.LONG * dy.elem.LONG); 
-            d = create_data(str);
+            d = create_data(str, 1);
         }
 
         if (dx.type == 2 && dy.type == 2) {
             sprintf(str, "%g", dx.elem.DOUBLE * dy.elem.DOUBLE); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         if (dx.type == 1 && dy.type == 2) {
             sprintf(str, "%g", dx.elem.LONG * dy.elem.DOUBLE); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         if (dx.type == 2 && dy.type == 1) {
             sprintf(str, "%g", dx.elem.DOUBLE * dy.elem.LONG); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         push(s, d);
@@ -139,24 +139,24 @@ bool divi (STACK *s, char *token) {
 
         if (dx.type == 1 && dy.type == 1) {
             sprintf(str, "%ld", dy.elem.LONG / dx.elem.LONG); 
-            d = create_data(str);
+            d = create_data(str, 1);
         }
 
         if (dx.type == 2 && dy.type == 2) {
             sprintf(str, "%g", dy.elem.DOUBLE / dx.elem.DOUBLE); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         if (dx.type == 1 && dy.type == 2) {
             double r = dy.elem.DOUBLE / dx.elem.LONG;
             sprintf(str, "%g", r); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         if (dx.type == 2 && dy.type == 1) {
             double r = dy.elem.LONG / dx.elem.DOUBLE;
             sprintf(str, "%g", r); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         push(s, d);
@@ -178,16 +178,16 @@ bool dec (STACK *s, char *token) {
         
         if (dx.type == 1) {
             sprintf(str, "%ld", dx.elem.LONG - 1); 
-            d = create_data(str);
+            d = create_data(str, 1);
         }
 
         if (dx.type == 2) {
             sprintf(str, "%g", dx.elem.DOUBLE - 1.0); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
         if (dx.type == 3) {
             sprintf(str, "%c", dx.elem.CHAR - 1); 
-            d = create_data(str);
+            d = create_data(str, 3);
         }
 
         push(s, d);
@@ -209,16 +209,16 @@ bool inc (STACK *s, char *token) {
         
         if (dx.type == 1) {
             sprintf(str, "%ld", dx.elem.LONG + 1); 
-            d = create_data(str);
+            d = create_data(str, 1);
         }
 
         if (dx.type == 2) {
             sprintf(str, "%g", dx.elem.DOUBLE + 1.0); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
         if (dx.type == 3) {
             sprintf(str, "%c", dx.elem.CHAR + 1); 
-            d = create_data(str);
+            d = create_data(str, 3);
         }
 
         push(s, d);
@@ -240,7 +240,7 @@ bool mod (STACK *s, char *token) {
         DATA d;
         
         sprintf(str, "%ld", dy.elem.LONG % dx.elem.LONG); 
-        d = create_data(str);
+        d = create_data(str, 1);
 
         push(s, d);
         return true;
@@ -260,31 +260,26 @@ bool expo (STACK *s, char *token) {
         DATA dy = pop(s);
         DATA d;
 
-        if (dx.elem.LONG == 0 && dx.type == 1) {
-            push (s, create_data("1"));
-            return true;
-        }
-
         if (dx.type == 1 && dy.type == 1) {
 
             long int yy = pow(dy.elem.LONG, dx.elem.LONG);
 
             sprintf(str, "%ld", yy); 
-            d = create_data(str);
+            d = create_data(str, 1);
         }
 
         if (dx.type == 2 && dy.type == 2) {
 
             double yy = pow(dy.elem.DOUBLE, dx.elem.DOUBLE);
             sprintf(str, "%g", yy); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         if (dx.type == 1 && dy.type == 2) {
             
             double yy = pow(dy.elem.DOUBLE,(double)dx.elem.LONG);
             sprintf(str, "%g", yy); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         if (dx.type == 2 && dy.type == 1) {
@@ -292,7 +287,7 @@ bool expo (STACK *s, char *token) {
             double yy = pow((double)dy.elem.LONG,dx.elem.DOUBLE);
 
             sprintf(str, "%g", yy); 
-            d = create_data(str);
+            d = create_data(str, 2);
         }
 
         push(s, d);
@@ -314,7 +309,7 @@ bool and (STACK *s, char *token) {
         DATA d;
 
         sprintf(str, "%ld", dy.elem.LONG & dx.elem.LONG); 
-        d = create_data(str);
+        d = create_data(str, 1);
 
         push(s, d);
         return true;
@@ -335,7 +330,7 @@ bool or (STACK *s, char *token) {
         DATA d;
 
         sprintf(str, "%ld", dy.elem.LONG | dx.elem.LONG); 
-        d = create_data(str);
+        d = create_data(str, 1);
 
         push(s, d);
         return true;
@@ -356,7 +351,7 @@ bool xor (STACK *s, char *token) {
         DATA d;
 
         sprintf(str, "%ld", dy.elem.LONG ^ dx.elem.LONG); 
-        d = create_data(str);
+        d = create_data(str, 1);
 
         push(s, d);
         return true;
@@ -376,7 +371,7 @@ bool not (STACK *s, char *token) {
         DATA d;
 
         sprintf(str, "%ld", ~dx.elem.LONG); 
-        d = create_data(str);
+        d = create_data(str, 1);
 
         push(s, d);
         return true;

@@ -19,7 +19,7 @@
  * 
  */
 bool val (STACK *s, char *token) {
-    push(s, create_data(token));
+    push(s, create_data(token, data_selector(token)));
     return true;
 }
 

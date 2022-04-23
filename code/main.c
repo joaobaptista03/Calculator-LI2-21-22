@@ -29,7 +29,7 @@ int main() {
     char str[30];
     for (int i = 0; i < count_l(line); i++) {
         assert (fgets (str, 30, stdin) != NULL);
-        reads[i] = create_data(str);
+        reads[i] = create_data(str, data_selector(str));
         for(unsigned int j = 0; j < strlen(str); j++) {
             str[j] = '\0';
         }

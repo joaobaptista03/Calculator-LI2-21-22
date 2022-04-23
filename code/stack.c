@@ -52,7 +52,7 @@ DATA pop (STACK *s) {
 TYPE data_selector(char a[]) {
     if (strcmp(a,"0") == 0) return 1;
     char *p;
-    if (strtof(a, &p) != 0) {
+    if (strtod(a, &p) != 0) {
         if (point(a)) return 2;
         return 1;
     }
@@ -66,9 +66,8 @@ TYPE data_selector(char a[]) {
  * Esta é a função que cria a struct data, dada uma string (token).
  * 
  */
-DATA create_data (char a[]) {
+DATA create_data (char a[], TYPE t) {
     char *p;
-    TYPE t = data_selector(a);
     DATA d;
     
     if (t == 1) { 
@@ -78,7 +77,7 @@ DATA create_data (char a[]) {
 
     if (t == 2) { 
         d.type = 2;
-        d.elem.DOUBLE = strtof(a, &p);
+        d.elem.DOUBLE = strtod(a, &p);
     }
 
     if (t == 3) { 
@@ -107,9 +106,7 @@ void print_stack (STACK *s) {
         if (s->stack[i].type == 2) {
             char str[30];
             sprintf(str, "%g", s->stack[i].elem.DOUBLE);
-            char str2[30]; 
-            strcpy(str2, delete_zeros(str));
-            printf("%s", str2);
+            printf("%s", str);
         }
         if (s->stack[i].type == 3) {
             printf("%c", s->stack[i].elem.CHAR);
