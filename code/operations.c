@@ -6,6 +6,7 @@
  */
 
 #include <stdio.h>
+#include <math.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -29,17 +30,17 @@ bool add (STACK *s, char *token) {
         }
 
         if (dx.type == 2 && dy.type == 2) {
-            sprintf(str, "%f", dx.elem.DOUBLE + dy.elem.DOUBLE); 
+            sprintf(str, "%g", dx.elem.DOUBLE + dy.elem.DOUBLE); 
             d = create_data(str);
         }
 
         if (dx.type == 1 && dy.type == 2) {
-            sprintf(str, "%f", dx.elem.LONG + dy.elem.DOUBLE); 
+            sprintf(str, "%g", dx.elem.LONG + dy.elem.DOUBLE); 
             d = create_data(str);
         }
 
         if (dx.type == 2 && dy.type == 1) {
-            sprintf(str, "%f", dx.elem.DOUBLE + dy.elem.LONG); 
+            sprintf(str, "%g", dx.elem.DOUBLE + dy.elem.LONG); 
             d = create_data(str);
         }
 
@@ -67,17 +68,17 @@ bool mult (STACK *s, char *token) {
         }
 
         if (dx.type == 2 && dy.type == 2) {
-            sprintf(str, "%f", dx.elem.DOUBLE * dy.elem.DOUBLE); 
+            sprintf(str, "%g", dx.elem.DOUBLE * dy.elem.DOUBLE); 
             d = create_data(str);
         }
 
         if (dx.type == 1 && dy.type == 2) {
-            sprintf(str, "%f", dx.elem.LONG * dy.elem.DOUBLE); 
+            sprintf(str, "%g", dx.elem.LONG * dy.elem.DOUBLE); 
             d = create_data(str);
         }
 
         if (dx.type == 2 && dy.type == 1) {
-            sprintf(str, "%f", dx.elem.DOUBLE * dy.elem.LONG); 
+            sprintf(str, "%g", dx.elem.DOUBLE * dy.elem.LONG); 
             d = create_data(str);
         }
 
@@ -105,17 +106,17 @@ bool sub (STACK *s, char *token) {
         }
 
         if (dx.type == 2 && dy.type == 2) {
-            sprintf(str, "%f", dy.elem.DOUBLE - dx.elem.DOUBLE); 
+            sprintf(str, "%g", dy.elem.DOUBLE - dx.elem.DOUBLE); 
             d = create_data(str);
         }
 
         if (dx.type == 1 && dy.type == 2) {
-            sprintf(str, "%f", dy.elem.LONG - dx.elem.DOUBLE); 
+            sprintf(str, "%g", dy.elem.LONG - dx.elem.DOUBLE); 
             d = create_data(str);
         }
 
         if (dx.type == 2 && dy.type == 1) {
-            sprintf(str, "%f", dy.elem.DOUBLE - dx.elem.LONG); 
+            sprintf(str, "%g", dy.elem.DOUBLE - dx.elem.LONG); 
             d = create_data(str);
         }
 
@@ -143,19 +144,19 @@ bool divi (STACK *s, char *token) {
         }
 
         if (dx.type == 2 && dy.type == 2) {
-            sprintf(str, "%f", dy.elem.DOUBLE / dx.elem.DOUBLE); 
+            sprintf(str, "%g", dy.elem.DOUBLE / dx.elem.DOUBLE); 
             d = create_data(str);
         }
 
         if (dx.type == 1 && dy.type == 2) {
             double r = dy.elem.DOUBLE / dx.elem.LONG;
-            sprintf(str, "%f", r); 
+            sprintf(str, "%g", r); 
             d = create_data(str);
         }
 
         if (dx.type == 2 && dy.type == 1) {
             double r = dy.elem.LONG / dx.elem.DOUBLE;
-            sprintf(str, "%f", r); 
+            sprintf(str, "%g", r); 
             d = create_data(str);
         }
 
@@ -177,54 +178,38 @@ bool expo (STACK *s, char *token) {
         DATA dy = pop(s);
         DATA d;
 
-        if (dx.elem.LONG == 0) {
+        if (dx.elem.LONG == 0 && dx.type == 1) {
             push (s, create_data("1"));
             return true;
         }
 
         if (dx.type == 1 && dy.type == 1) {
 
-            int y2 = dy.elem.LONG;
-            for (; dx.elem.LONG > 1; dx.elem.LONG--) {
-                dy.elem.LONG *= y2;
-            }
+            long int yy = pow(dy.elem.LONG, dx.elem.LONG);
 
-            sprintf(str, "%ld", dy.elem.LONG); 
+            sprintf(str, "%ld", yy); 
             d = create_data(str);
         }
 
         if (dx.type == 2 && dy.type == 2) {
 
-            int y2 = dy.elem.DOUBLE;
-            for (; dx.elem.DOUBLE > 1; dx.elem.DOUBLE--) {
-                dy.elem.DOUBLE *= y2;
-            }
-
-            sprintf(str, "%f", dy.elem.DOUBLE); 
+            double yy = pow(dy.elem.DOUBLE, dx.elem.DOUBLE);
+            sprintf(str, "%g", yy); 
             d = create_data(str);
         }
 
         if (dx.type == 1 && dy.type == 2) {
-
-            int y2 = dy.elem.DOUBLE;
-            for (; dx.elem.LONG > 1; dx.elem.LONG--) {
-                dy.elem.DOUBLE *= y2;
-            }
-
-            sprintf(str, "%f", dy.elem.DOUBLE); 
+            
+            double yy = pow(dy.elem.DOUBLE,(double)dx.elem.LONG);
+            sprintf(str, "%g", yy); 
             d = create_data(str);
         }
 
         if (dx.type == 2 && dy.type == 1) {
 
-            double yy = dy.elem.LONG;
+            double yy = pow((double)dy.elem.LONG,dx.elem.DOUBLE);
 
-            double y2 = yy;
-            for (; dx.elem.DOUBLE > 1; dx.elem.DOUBLE--) {
-                yy *= y2;
-            }
-
-            sprintf(str, "%f", yy); 
+            sprintf(str, "%g", yy); 
             d = create_data(str);
         }
 
@@ -355,7 +340,11 @@ bool dec (STACK *s, char *token) {
         }
 
         if (dx.type == 2) {
-            sprintf(str, "%f", dx.elem.DOUBLE - 1.0); 
+            sprintf(str, "%g", dx.elem.DOUBLE - 1.0); 
+            d = create_data(str);
+        }
+        if (dx.type == 3) {
+            sprintf(str, "%c", dx.elem.CHAR - 1); 
             d = create_data(str);
         }
 
@@ -382,7 +371,11 @@ bool inc (STACK *s, char *token) {
         }
 
         if (dx.type == 2) {
-            sprintf(str, "%f", dx.elem.DOUBLE + 1.0); 
+            sprintf(str, "%g", dx.elem.DOUBLE + 1.0); 
+            d = create_data(str);
+        }
+        if (dx.type == 3) {
+            sprintf(str, "%c", dx.elem.CHAR + 1); 
             d = create_data(str);
         }
 
@@ -474,7 +467,7 @@ bool s_command (STACK *s, char *token) {
         if (s->stack[s->sp].type == 2) {
             double x = pop(s).elem.DOUBLE;
             char str[30];
-            sprintf(str, "%f", x);
+            sprintf(str, "%g", x);
             push(s, create_data(str));
         }
         if (s->stack[s->sp].type == 3) {
@@ -537,6 +530,38 @@ bool copy_command (STACK *s, char *token) {
 
 /**
  *
+ * Esta é a função que executa a operação @, dada a stack e caso o token seja "@".
+ * 
+ */
+bool rotate_command (STACK *s, char *token) {
+    if (strcmp(token, "@") == 0) {
+        DATA x = pop(s);
+        DATA y = pop(s);
+        DATA z = pop(s);
+
+        push(s, y);
+        push(s, x);
+        push(s, z);
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação ;, dada a stack e caso o token seja ";".
+ * 
+ */
+bool pop_command (STACK *s, char *token) {
+    if (strcmp(token, ";") == 0) {
+        pop(s);
+        return true;
+    }
+    return false;
+}
+
+/**
+ *
  * Esta é a função que é utilizada para colocar os valores na stack, dada a stack e um token diferente de um token de operação.
  * 
  */
@@ -551,5 +576,5 @@ bool val (STACK *s, char *token) {
  * 
  */
 void handle (STACK *s, char *token) {
-    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || xor(s, token) || or(s, token) || and(s, token) || not(s, token) || mod(s, token) || dec(s, token) || inc (s, token) || expo (s, token) || i_command(s, token) || f_command(s, token) || c_command(s, token) || s_command(s, token) || dup(s, token) || exchange_command(s, token) || copy_command(s, token) || val(s, token)) {};
+    if (add(s, token) || mult(s, token) || sub(s, token) || divi(s, token) || xor(s, token) || or(s, token) || and(s, token) || not(s, token) || mod(s, token) || dec(s, token) || inc (s, token) || expo (s, token) || i_command(s, token) || f_command(s, token) || c_command(s, token) || s_command(s, token) || dup(s, token) || exchange_command(s, token) || copy_command(s, token) || rotate_command(s, token) || pop_command(s, token) || val(s, token)) {};
 }

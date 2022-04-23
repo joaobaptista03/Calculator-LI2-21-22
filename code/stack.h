@@ -248,3 +248,19 @@ bool exchange_command (STACK *s, char *token);
  * 
  */
 bool copy_command (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação @, dada a stack e caso o token seja "@".
+ * 
+ */
+bool rotate_command (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação ;, dada a stack e caso o token seja ";".
+ * 
+ */
+bool pop_command (STACK *s, char *token);
+
+int count_l(char a[]);

@@ -55,7 +55,6 @@ TYPE data_selector(char a[]) {
     if (strcmp(a,"0") == 0) return 1;
     char *p;
     if (strtof(a, &p) != 0) {
-
         if (point(a)) return 2;
         return 1;
     }
@@ -110,7 +109,7 @@ void print_stack (STACK *s) {
         }
         if (s->stack[i].type == 2) {
             char str[30];
-            sprintf(str, "%f", s->stack[i].elem.DOUBLE);
+            sprintf(str, "%g", s->stack[i].elem.DOUBLE);
             char str2[30]; 
             strcpy(str2, delete_zeros(str));
             printf("%s", str2);
@@ -138,7 +137,8 @@ char* delete_zeros (char a[]) {
     for(int i = strlen(a)-1; i > 0; i--) {
         if (a[i] == '0') a[i] = '\0';
         else if (p && a[i] == '.') {
-            a[i] = '\0';
+            a[i+1] = '0';
+            //printf("%s", a);
             return a;
         }
         else return a;
@@ -156,4 +156,12 @@ bool point(char a[]) {
         if (a[i] == '.') return true;
     }
     return false;
+}
+
+int count_l(char a[]) {
+    int l = 0;
+    for (unsigned int i = 0; i < strlen(a); i++) {
+        if (a[i] == 'l') l++;
+    }
+    return l;
 }

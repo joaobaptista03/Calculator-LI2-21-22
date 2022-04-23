@@ -22,11 +22,23 @@ int main() {
     STACK *s = new_stack(1000);
     char line[BUFSIZ];
     char token[BUFSIZ];
+    int l = 0;
     assert (fgets (line, BUFSIZ, stdin) != NULL);
-    
+    DATA reads[count_l(line)];
+    char str[30];
+    for (int i = 0; i < count_l(line); i++) {
+        assert (fgets (str, 30, stdin) != NULL);
+        reads[i] = create_data(str);
+        for(unsigned int j = 0; j < strlen(str); j++) {
+            str[j] = '\0';
+        }
+    }
     while (sscanf (line, "%s %[^\n]", token, line) == 2) {
-
-        handle (s, token);
+        if (strcmp(token, "l") == 0) {
+            push(s, reads[l]);
+            l++;
+        }
+            else handle (s, token);
     }
     handle (s, token);
     print_stack(s);
