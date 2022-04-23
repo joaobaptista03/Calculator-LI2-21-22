@@ -40,4 +40,11 @@ bool c_command (STACK *s, char *token);
  */
 bool s_command (STACK *s, char *token);
 
+/**
+ *
+ * String que irá ser útil para guardar elementos.
+ * 
+ */
+char elem[30];
+
 #endif

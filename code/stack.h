@@ -11,6 +11,7 @@
 /**
  *
  * Este typedef enumera o tipo inserido, long corresponde a 1, double a 2, char a 3 e string a 4 : 
+ * 
  */
 typedef enum {
     LONG = 1,
@@ -23,6 +24,7 @@ typedef enum {
  *
  * Este typedef struct corresponde aos elementos da array da stack, sendo que cada struct contém a informação
  * do tipo desse elemento da stack e uma union com o próprio elemento: 
+ * 
  */
 typedef struct data {
     TYPE type;
@@ -38,6 +40,7 @@ typedef struct data {
 /**
  *
  * Esta struct define o que é uma STACK : 
+ * 
  */
 typedef struct stack {
     DATA stack [1000];
