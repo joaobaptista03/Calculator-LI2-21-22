@@ -19,6 +19,34 @@
  */
 STACK *new_stack(int size) {
     STACK *s = malloc(size * sizeof(STACK));
+
+    s->alphabet[0] = create_data("10",1);
+    s->alphabet[1] = create_data("11",1);
+    s->alphabet[2] = create_data("12",1);
+    s->alphabet[3] = create_data("13",1);
+    s->alphabet[4] = create_data("14",1);
+    s->alphabet[5] = create_data("15",1);
+    s->alphabet[6] = create_data("0",1);
+    s->alphabet[7] = create_data("0",1);
+    s->alphabet[8] = create_data("0",1);
+    s->alphabet[9] = create_data("0",1);
+    s->alphabet[10] = create_data("0",1);
+    s->alphabet[11] = create_data("0",1);
+    s->alphabet[12] = create_data("0",1);
+    s->alphabet[13] = create_data("\n",3);
+    s->alphabet[14] = create_data("0",1);
+    s->alphabet[15] = create_data("0",1);
+    s->alphabet[16] = create_data("0",1);
+    s->alphabet[17] = create_data("0",1);
+    s->alphabet[18] = create_data(" ",3);
+    s->alphabet[19] = create_data("0",1);
+    s->alphabet[20] = create_data("0",1);
+    s->alphabet[21] = create_data("0",1);
+    s->alphabet[22] = create_data("0",1);
+    s->alphabet[23] = create_data("0",1);
+    s->alphabet[24] = create_data("1",1);
+    s->alphabet[25] = create_data("2",1);
+
     s->sp = -1;
     return s;
 }

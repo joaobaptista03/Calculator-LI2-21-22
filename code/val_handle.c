@@ -43,8 +43,7 @@ void handle (STACK *s, char *token) {
     || equal_command(s, token) || lower_command(s, token) || higher_command(s, token) || no_command(s, token)
     || and_command(s, token) || or_command(s, token) || lower2_command(s, token) || higher2_command(s, token) || if_command(s, token) 
     
-    || A_command(s, token) || B_command(s, token) || C_command(s, token) || D_command(s, token) || E_command(s, token) || F_command(s, token)
-    || N_command(s, token) || S_command(s, token) || X_command(s, token) || Y_command(s, token) || Z_command(s, token)
+    || SP_command(s, token) || V_commands(s, token)
     
     || val(s, token)) {};
 }

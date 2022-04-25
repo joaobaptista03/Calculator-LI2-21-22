@@ -14,79 +14,16 @@
 
 /**
  *
- * Este é o header da função que executa a operação A, dada a stack e caso o token seja "A".
+ * Este é o header da função que executa as operações <A-Z>, dada a stack e caso o token seja uma letra compreendida de A a Z.
  * 
  */
-bool A_command (STACK *s, char *token);
+bool V_commands (STACK *s, char *token);
 
 /**
  *
- * Este é o header da função que executa a operação B, dada a stack e caso o token seja "B".
+ * Este é o header da função que executa as operações :<A-Z>, dada a stack e caso o token seja ":" seguido de uma letra compreendida de A a Z.
  * 
  */
-bool B_command (STACK *s, char *token);
-
-/**
- *
- * Este é o header da função que executa a operação C, dada a stack e caso o token seja "C".
- * 
- */
-bool C_command (STACK *s, char *token);
-
-/**
- *
- * Este é o header da função que executa a operação D, dada a stack e caso o token seja "D".
- * 
- */
-bool D_command (STACK *s, char *token);
-
-/**
- *
- * Este é o header da função que executa a operação E, dada a stack e caso o token seja "E".
- * 
- */
-bool E_command (STACK *s, char *token);
-
-/**
- *
- * Este é o header da função que executa a operação F, dada a stack e caso o token seja "F".
- * 
- */
-bool F_command (STACK *s, char *token);
-
-/**
- *
- * Este é o header da função que executa a operação N, dada a stack e caso o token seja "N".
- * 
- */
-bool N_command (STACK *s, char *token);
-
-/**
- *
- * Este é o header da função que executa a operação S, dada a stack e caso o token seja "S".
- * 
- */
-bool S_command (STACK *s, char *token);
-
-/**
- *
- * Este é o header da função que executa a operação X, dada a stack e caso o token seja "X".
- * 
- */
-bool X_command (STACK *s, char *token);
-
-/**
- *
- * Este é o header da função que executa a operação Y, dada a stack e caso o token seja "Y".
- * 
- */
-bool Y_command (STACK *s, char *token);
-
-/**
- *
- * Este é o header da função que executa a operação Z, dada a stack e caso o token seja "Z".
- * 
- */
-bool Z_command (STACK *s, char *token);
+bool SP_command (STACK *s, char *token);
 
 #endif

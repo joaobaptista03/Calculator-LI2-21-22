@@ -44,6 +44,7 @@ typedef struct data {
  */
 typedef struct stack {
     DATA stack [1000];
+    DATA alphabet[26];
     int sp; /**<SP: Um apontador para o último elmento da stack*/
 } STACK;
 
