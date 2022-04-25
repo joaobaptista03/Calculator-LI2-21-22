@@ -12,7 +12,7 @@
 #include "stack_manipulation.h"
 #include "logical_operations.h"
 #include "variables.h"
-#include "arrays.h"
+#include "arraysstrings.h"
 #include "conversions.h"
 
 
@@ -45,8 +45,6 @@ void handle (STACK *s, char *token) {
     || and_command(s, token) || or_command(s, token) || lower2_command(s, token) || higher2_command(s, token) || if_command(s, token) 
     
     || SP_command(s, token) || V_commands(s, token)
-
-    || make_string(s, token)
     
     || val(s, token)) {};
 }

@@ -1,5 +1,5 @@
 /**
- * @file arrays.h
+ * @file arraysstrings.h
  * 
  * Este ficheiro contém o conteúdo das funções de operações relacionadas com arrays.
  * 

@@ -80,6 +80,7 @@ DATA pop (STACK *s) {
  */
 TYPE data_selector(char a[]) {
     if (strcmp(a,"0") == 0) return 1;
+    if (strcmp(a,"0.0") == 0) return 2;
     char *p;
     if (strtod(a, &p) != 0) {
         if (point(a)) return 2;

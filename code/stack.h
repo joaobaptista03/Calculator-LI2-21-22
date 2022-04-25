@@ -18,6 +18,7 @@ typedef enum {
     DOUBLE = 2, /**<Se o tipo do elemento for Double, Type = 2*/
     CHAR = 3, /**<Se o tipo do elemento for Char, Type = 3*/ 
     STRING = 4, /**<Se o tipo do elemento for String, Type = 4*/
+    ARRAY = 5, /**<Se o tipo do elemento for Array, Type = 5*/
 } TYPE ;
 
 /**
@@ -33,6 +34,7 @@ typedef struct data {
         double DOUBLE; /**<Guarda o valor em Double caso o Type == 2*/
         char CHAR; /**<Guarda o valor em Char caso o Type == 3*/
         char* STRING; /**<Guarda o valor em String caso o Type == 4*/
+        int* ARRAY; /**<Guarda o valor em String caso o Type == 5*/
     } elem;
 } DATA;
 
@@ -42,8 +44,8 @@ typedef struct data {
  * 
  */
 typedef struct stack {
-    DATA stack [1000]; /**<Array de DATA's que guarda os elementos e o tipo deles da stack**/
-    DATA alphabet[26]; /**<Array de DATA's que guarda os elementos e o tipo deles das variáveis A-Z**/
+    DATA stack [1000]; /**<Array de DATA's que guarda os elementos e o tipo deles da stack*/
+    DATA alphabet[26]; /**<Array de DATA's que guarda os elementos e o tipo deles das variáveis A-Z*/
     int sp; /**<Um apontador para o último elmento da stack*/
 } STACK;
 

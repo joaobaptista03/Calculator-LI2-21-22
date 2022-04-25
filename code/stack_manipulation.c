@@ -20,7 +20,7 @@ bool dup_command(STACK *s, char *token) {
     if (strcmp(token, "_") == 0) {
         DATA d = s->stack[s->sp];
         push(s, d);
-    return true;
+        return true;
     }
     return false;
 }
