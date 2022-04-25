@@ -1,7 +1,7 @@
 /**
  * @file logical_operations.h
  * 
- * Este ficheiro contêm a assinatura das funções relacionadas com operações lógicas.
+ * Este ficheiro contém a assinatura das funções relacionadas com operações lógicas.
  * 
  */
 

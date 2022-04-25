@@ -1,7 +1,7 @@
 /**
  * @file stack.h
  * 
- * Este ficheiro contêm as assinaturas das funções relacionadas com a STACK.
+ * Este ficheiro contém as assinaturas das funções relacionadas com a STACK.
  * 
  */
 

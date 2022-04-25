@@ -1,7 +1,7 @@
 /**
  * @file conversions.c
  * 
- * Este ficheiro contêm o conteúdo das funções de operações relacionadas com conversões de tipos.
+ * Este ficheiro contém o conteúdo das funções de operações relacionadas com conversões de tipos.
  * 
  */
 

@@ -1,7 +1,7 @@
 /**
  * @file conversions.h
  * 
- * Este ficheiro contêm as assinaturas das funções de operações relacionadas com conversões de tipos.
+ * Este ficheiro contém as assinaturas das funções de operações relacionadas com conversões de tipos.
  * 
  */
 

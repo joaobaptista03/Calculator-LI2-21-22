@@ -1,7 +1,7 @@
 /**
  * @file logical_operations.c
  * 
- * Este ficheiro contêm o conteúdo das funções relacionadas com operações lógicas.
+ * Este ficheiro contém o conteúdo das funções relacionadas com operações lógicas.
  * 
  */
 

@@ -1,7 +1,7 @@
 /**
  * @file math_operations.c
  * 
- * Este ficheiro contêm o conteúdo das funções relacionadas com operações matemáticas.
+ * Este ficheiro contém o conteúdo das funções relacionadas com operações matemáticas.
  * 
  */
 

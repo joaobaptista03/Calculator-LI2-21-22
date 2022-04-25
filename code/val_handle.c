@@ -1,7 +1,7 @@
 /**
  * @file val_handle.c
  * 
- * Este ficheiro contêm o conteúdo das funções val e handle.
+ * Este ficheiro contém o conteúdo das funções val e handle.
  * 
  */
 

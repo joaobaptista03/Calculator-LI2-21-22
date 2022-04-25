@@ -1,7 +1,7 @@
 /**
  * @file random_funcs.c
  * 
- * Este ficheiro contêm o conteúdo das funções aleatórias que podem ser usadas em vários assuntos.
+ * Este ficheiro contém o conteúdo das funções aleatórias que podem ser usadas em vários assuntos.
  * 
  */
 

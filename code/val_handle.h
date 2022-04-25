@@ -1,7 +1,7 @@
 /**
  * @file val_handle.h
  * 
- * Este ficheiro contêm as assinaturas das funções val e handle.
+ * Este ficheiro contém as assinaturas das funções val e handle.
  * 
  */
 

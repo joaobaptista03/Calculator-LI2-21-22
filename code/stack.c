@@ -1,7 +1,7 @@
 /**
  * @file stack.c
  * 
- * Este ficheiro contêm o conteúdo das funções relacionadas com a stack.
+ * Este ficheiro contém o conteúdo das funções relacionadas com a stack.
  * 
  */
 

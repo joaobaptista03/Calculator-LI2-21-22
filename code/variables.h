@@ -1,7 +1,7 @@
 /**
  * @file variables.h
  * 
- * Este ficheiro contêm o conteúdo das funções relacionadas com variáveis.
+ * Este ficheiro contém a assinatura das funções relacionadas com variáveis.
  * 
  */
 

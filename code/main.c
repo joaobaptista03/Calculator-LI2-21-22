@@ -1,6 +1,6 @@
 /**
  * @file main.c
- * Este ficheiro contêm a função main que é a função principal do programa.
+ * Este ficheiro contém a função main que é a função principal do programa.
  * 
  */
 

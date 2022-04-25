@@ -1,7 +1,7 @@
 /**
  * @file stack_manipulation.h
  * 
- * Este ficheiro contêm as assinaturas das funções relacionadas com operações de manipulação de stack.
+ * Este ficheiro contém as assinaturas das funções relacionadas com operações de manipulação de stack.
  * 
  */
 

@@ -1,7 +1,7 @@
 /**
  * @file math_operations.h
  * 
- * Este ficheiro contêm as assinaturas das funções relacionadas com operações matemáticas.
+ * Este ficheiro contém as assinaturas das funções relacionadas com operações matemáticas.
  * 
  */
 

@@ -1,7 +1,7 @@
 /**
  * @file random_funcs.h
  * 
- * Este ficheiro contêm as assinaturas das funções aleatórias que podem ser usadas em vários assuntos.
+ * Este ficheiro contém as assinaturas das funções aleatórias que podem ser usadas em vários assuntos.
  * 
  */
 
