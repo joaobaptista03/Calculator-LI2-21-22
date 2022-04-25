@@ -14,11 +14,11 @@
 
 /**
  *
- * Este é o header da função que executa a operação "", dada a stack e caso os tokens sejam " "" ".
+ * Este é o header da função que executa a operação + para strings e arrays, dada a stack e caso o token seja "+".
  * 
- * A operação "" cria uma String
+ * A operação + concatena 2 strings ou arrays.
  * 
  */
-bool make_string (STACK *s, char *token);
+bool conc_strings (STACK *s, char *token);
 
 #endif

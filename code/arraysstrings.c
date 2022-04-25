@@ -25,9 +25,8 @@ bool conc_strings (STACK *s, char *token) {
             pop(s);
             pop(s);
             push(s, create_data(strcat(dx.elem.STRING, dy.elem.STRING), 4));
+            return true;
         }
-
-        return true;
     }
     return false;
 }

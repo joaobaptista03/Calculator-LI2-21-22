@@ -34,7 +34,7 @@ typedef struct data {
         double DOUBLE; /**<Guarda o valor em Double caso o Type == 2*/
         char CHAR; /**<Guarda o valor em Char caso o Type == 3*/
         char* STRING; /**<Guarda o valor em String caso o Type == 4*/
-        int* ARRAY; /**<Guarda o valor em String caso o Type == 5*/
+        //ARRAY /**<Guarda o valor em Array caso o Type == 5*/
     } elem;
 } DATA;
 

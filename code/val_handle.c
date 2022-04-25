@@ -45,6 +45,8 @@ void handle (STACK *s, char *token) {
     || and_command(s, token) || or_command(s, token) || lower2_command(s, token) || higher2_command(s, token) || if_command(s, token) 
     
     || SP_command(s, token) || V_commands(s, token)
+
+    || conc_strings(s, token)
     
     || val(s, token)) {};
 }
