@@ -42,9 +42,9 @@ typedef struct data {
  * 
  */
 typedef struct stack {
-    DATA stack [1000]; /**Array de DATA's que guarda os elementos e o tipo deles da stack**/
-    DATA alphabet[26]; /**Array de DATA's que guarda os elementos e o tipo deles das variáveis A-Z**/
-    int sp; /**<SP: Um apontador para o último elmento da stack*/
+    DATA stack [1000]; /**<Array de DATA's que guarda os elementos e o tipo deles da stack**/
+    DATA alphabet[26]; /**<Array de DATA's que guarda os elementos e o tipo deles das variáveis A-Z**/
+    int sp; /**<Um apontador para o último elmento da stack*/
 } STACK;
 
 /**
