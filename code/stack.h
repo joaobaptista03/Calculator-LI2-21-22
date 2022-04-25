@@ -28,7 +28,7 @@ typedef enum {
 typedef struct data {
     TYPE type; /**<Guarda o tipo do elemento*/
 
-    union elem {
+    union elem { /**<Union que guarda o elemento dependendo do tipo*/
         long LONG; /**<Guarda o valor em Long Int caso o Type == 1*/
         double DOUBLE; /**<Guarda o valor em Double caso o Type == 2*/
         char CHAR; /**<Guarda o valor em Char caso o Type == 3*/
