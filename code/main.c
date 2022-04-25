@@ -50,4 +50,4 @@ int main() {
 
 
 // Comando gcc (tem de estar na pasta code)
-// gcc -Wall -Wextra -pedantic-errors -O2 .\stack.c .\random_funcs.c .\conversions.c .\input_output.c .\math_operations.c .\stack_manipulation.c .\logical_operations.c .\variables.c .\val_handle.c .\main.c -lm
+// gcc -Wall -Wextra -pedantic-errors -O2 *.c -lm
