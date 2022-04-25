@@ -20,6 +20,7 @@
 STACK *new_stack(int size) {
     STACK *s = malloc(size * sizeof(STACK));
 
+    /**As seguintes linhas de código estão a criar as DATA's referentes às variáveis A-Z**/
     s->alphabet[0] = create_data("10",1);
     s->alphabet[1] = create_data("11",1);
     s->alphabet[2] = create_data("12",1);

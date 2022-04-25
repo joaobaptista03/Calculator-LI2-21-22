@@ -11,7 +11,7 @@
 
 /**
  *
- * Esta é a função que executa a operação A, dada a stack e caso o token seja "A".
+ * Esta é a função que executa a operação <A-Z>, dada a stack e caso o token seja "<A-Z>".
  * 
  */
 bool V_commands (STACK *s, char *token) {

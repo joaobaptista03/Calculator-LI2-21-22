@@ -1,7 +1,7 @@
 /**
  * @file stack.h
  * 
- * Este ficheiro contêm as assinaturas das funções relacionadas com a stack.
+ * Este ficheiro contêm as assinaturas das funções relacionadas com a STACK.
  * 
  */
 
@@ -10,41 +10,40 @@
 
 /**
  *
- * Este typedef enumera o tipo inserido, long corresponde a 1, double a 2, char a 3 e string a 4 : 
+ * Este typedef enumera o tipo do elemento:
  * 
  */
 typedef enum {
-    LONG = 1,
-    DOUBLE = 2,
-    CHAR = 3,
-    STRING = 4,
+    LONG = 1, /**<Se o tipo do elemento for Long Int, Type = 1*/
+    DOUBLE = 2, /**<Se o tipo do elemento for Double, Type = 2*/
+    CHAR = 3, /**<Se o tipo do elemento for Char, Type = 3*/ 
+    STRING = 4, /**<Se o tipo do elemento for String, Type = 4*/
 } TYPE ;
 
 /**
  *
- * Este typedef struct corresponde aos elementos da array da stack, sendo que cada struct contém a informação
- * do tipo desse elemento da stack e uma union com o próprio elemento: 
+ * Este typedef struct corresponde aos elementos da array da STACK:
  * 
  */
 typedef struct data {
-    TYPE type;
+    TYPE type; /**<Guarda o tipo do elemento*/
 
     union elem {
-        long LONG;
-        double DOUBLE;
-        char CHAR;
-        char* STRING;
+        long LONG; /**<Guarda o valor em Long Int caso o Type == 1*/
+        double DOUBLE; /**<Guarda o valor em Double caso o Type == 2*/
+        char CHAR; /**<Guarda o valor em Char caso o Type == 3*/
+        char* STRING; /**<Guarda o valor em String caso o Type == 4*/
     } elem;
 } DATA;
 
 /**
  *
- * Esta struct define o que é uma STACK : 
+ * Esta struct define o que é uma STACK: 
  * 
  */
 typedef struct stack {
-    DATA stack [1000];
-    DATA alphabet[26];
+    DATA stack [1000]; /**Array de DATA's que guarda os elementos e o tipo deles da stack**/
+    DATA alphabet[26]; /**Array de DATA's que guarda os elementos e o tipo deles das variáveis A-Z**/
     int sp; /**<SP: Um apontador para o último elmento da stack*/
 } STACK;
 

@@ -14,7 +14,7 @@
 
 /**
  *
- * Este é o header da função que executa as operações <A-Z>, dada a stack e caso o token seja uma letra compreendida de A a Z.
+ * Esta é a função que executa a operação <A-Z>, dada a stack e caso o token seja "<A-Z>".
  * 
  */
 bool V_commands (STACK *s, char *token);

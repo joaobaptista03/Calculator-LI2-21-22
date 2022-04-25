@@ -14,6 +14,8 @@
  *
  * Esta é a função que executa a operação i, dada a stack e caso o token seja "i".
  * 
+ * A operação i transforma um valor em Long Int.
+ * 
  */
 bool i_command (STACK *s, char *token) {
     if (strcmp(token, "i") == 0) {
@@ -38,6 +40,8 @@ bool i_command (STACK *s, char *token) {
  *
  * Esta é a função que executa a operação f, dada a stack e caso o token seja "f".
  * 
+ * A operação f transforma um valor em Double.
+ * 
  */
 bool f_command (STACK *s, char *token) {
     if (strcmp(token, "f") == 0) {
@@ -61,6 +65,8 @@ bool f_command (STACK *s, char *token) {
  *
  * Esta é a função que executa a operação c, dada a stack e caso o token seja "c".
  * 
+ * A operação c transforma um valor em Char.
+ * 
  */
 bool c_command (STACK *s, char *token) {
     if (strcmp(token, "c") == 0) {
@@ -75,6 +81,8 @@ bool c_command (STACK *s, char *token) {
 /**
  *
  * Esta é a função que executa a operação s, dada a stack e caso o token seja "s".
+ * 
+ * A operação s transforma um valor em String.
  * 
  */
 bool s_command (STACK *s, char *token) {
