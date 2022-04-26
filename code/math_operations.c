@@ -20,43 +20,44 @@
  */
 bool add (STACK *s, char *token) {
     if (strcmp(token, "+") == 0) {
-        char str[30];
         DATA dx = s->stack[s->sp];
         DATA dy = s->stack[s->sp-1];
         DATA d;
-        
-        if (dx.type == LONG && dy.type == LONG) {
-            sprintf(str, "%ld", dx.elem.LONG + dy.elem.LONG); 
-            d = create_data(str, LONG);
-            pop(s);
-            pop(s);
-            push(s,d);
-            return true;
+
+        TYPE type1 = dx.type;
+        TYPE type2 = dy.type;
+
+        if (type1 == LONG) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.LONG;
+        }
+        if (type2 == LONG) {
+            dy.type = DOUBLE;
+            dy.elem.DOUBLE = dy.elem.LONG;
+        }
+
+        if (type1 == CHAR) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.CHAR;
+        }
+        if (type2 == CHAR) {
+            dy.type = DOUBLE;
+            dy.elem.DOUBLE = dy.elem.CHAR;
         }
 
         if (dx.type == DOUBLE && dy.type == DOUBLE) {
-            sprintf(str, "%g", dx.elem.DOUBLE + dy.elem.DOUBLE); 
-            d = create_data(str, DOUBLE);
             pop(s);
             pop(s);
-            push(s,d);
-            return true;
-        }
 
-        if (dx.type == LONG && dy.type == DOUBLE) {
-            sprintf(str, "%g", dx.elem.LONG + dy.elem.DOUBLE); 
-            d = create_data(str, DOUBLE);
-            pop(s);
-            pop(s);
-            push(s,d);
-            return true;
-        }
+            if (type1 == DOUBLE || type2 == DOUBLE) {
+                d.type = DOUBLE;
+                d.elem.DOUBLE = dy.elem.DOUBLE + dx.elem.DOUBLE;
+            }
+            else {
+                d.type = LONG;
+                d.elem.LONG = dy.elem.DOUBLE + dx.elem.DOUBLE;
+            }
 
-        if (dx.type == DOUBLE && dy.type == LONG) {
-            sprintf(str, "%g", dx.elem.DOUBLE + dy.elem.LONG); 
-            d = create_data(str, DOUBLE);
-            pop(s);
-            pop(s);
             push(s,d);
             return true;
         }
@@ -73,43 +74,44 @@ bool add (STACK *s, char *token) {
  */
 bool sub (STACK *s, char *token) {
     if (strcmp(token, "-") == 0) {
-        char str[30];
         DATA dx = s->stack[s->sp];
         DATA dy = s->stack[s->sp-1];
         DATA d;
-        
-        if (dx.type == LONG && dy.type == LONG) {
-            sprintf(str, "%ld", dy.elem.LONG - dx.elem.LONG); 
-            d = create_data(str, LONG);
-            pop(s);
-            pop(s);
-            push(s,d);
-            return true;
+
+        TYPE type1 = dx.type;
+        TYPE type2 = dy.type;
+
+        if (type1 == LONG) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.LONG;
+        }
+        if (type2 == LONG) {
+            dy.type = DOUBLE;
+            dy.elem.DOUBLE = dy.elem.LONG;
+        }
+
+        if (type1 == CHAR) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.CHAR;
+        }
+        if (type2 == CHAR) {
+            dy.type = DOUBLE;
+            dy.elem.DOUBLE = dy.elem.CHAR;
         }
 
         if (dx.type == DOUBLE && dy.type == DOUBLE) {
-            sprintf(str, "%g", dy.elem.DOUBLE - dx.elem.DOUBLE); 
-            d = create_data(str, DOUBLE);
             pop(s);
             pop(s);
-            push(s,d);
-            return true;
-        }
 
-        if (dx.type == LONG && dy.type == DOUBLE) {
-            sprintf(str, "%g", dy.elem.LONG - dx.elem.DOUBLE); 
-            d = create_data(str, DOUBLE);
-            pop(s);
-            pop(s);
-            push(s,d);
-            return true;
-        }
+            if (type1 == DOUBLE || type2 == DOUBLE) {
+                d.type = DOUBLE;
+                d.elem.DOUBLE = dy.elem.DOUBLE - dx.elem.DOUBLE;
+            }
+            else {
+                d.type = LONG;
+                d.elem.LONG = dy.elem.DOUBLE - dx.elem.DOUBLE;
+            }
 
-        if (dx.type == DOUBLE && dy.type == LONG) {
-            sprintf(str, "%g", dy.elem.DOUBLE - dx.elem.LONG); 
-            d = create_data(str, DOUBLE);
-            pop(s);
-            pop(s);
             push(s,d);
             return true;
         }
@@ -126,43 +128,44 @@ bool sub (STACK *s, char *token) {
  */
 bool mult (STACK *s, char *token) {
     if (strcmp(token, "*") == 0) {
-        char str[30];
         DATA dx = s->stack[s->sp];
         DATA dy = s->stack[s->sp-1];
         DATA d;
-        
-        if (dx.type == LONG && dy.type == LONG) {
-            sprintf(str, "%ld", dx.elem.LONG * dy.elem.LONG); 
-            d = create_data(str, LONG);
-            pop(s);
-            pop(s);
-            push(s,d);
-            return true;
+
+        TYPE type1 = dx.type;
+        TYPE type2 = dy.type;
+
+        if (type1 == LONG) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.LONG;
+        }
+        if (type2 == LONG) {
+            dy.type = DOUBLE;
+            dy.elem.DOUBLE = dy.elem.LONG;
+        }
+
+        if (type1 == CHAR) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.CHAR;
+        }
+        if (type2 == CHAR) {
+            dy.type = DOUBLE;
+            dy.elem.DOUBLE = dy.elem.CHAR;
         }
 
         if (dx.type == DOUBLE && dy.type == DOUBLE) {
-            sprintf(str, "%g", dx.elem.DOUBLE * dy.elem.DOUBLE); 
-            d = create_data(str, DOUBLE);
             pop(s);
             pop(s);
-            push(s,d);
-            return true;
-        }
 
-        if (dx.type == LONG && dy.type == DOUBLE) {
-            sprintf(str, "%g", dx.elem.LONG * dy.elem.DOUBLE); 
-            d = create_data(str, DOUBLE);
-            pop(s);
-            pop(s);
-            push(s,d);
-            return true;
-        }
+            if (type1 == DOUBLE || type2 == DOUBLE) {
+                d.type = DOUBLE;
+                d.elem.DOUBLE = dy.elem.DOUBLE * dx.elem.DOUBLE;
+            }
+            else {
+                d.type = LONG;
+                d.elem.LONG = dy.elem.DOUBLE * dx.elem.DOUBLE;
+            }
 
-        if (dx.type == DOUBLE && dy.type == LONG) {
-            sprintf(str, "%g", dx.elem.DOUBLE * dy.elem.LONG); 
-            d = create_data(str, DOUBLE);
-            pop(s);
-            pop(s);
             push(s,d);
             return true;
         }
@@ -179,45 +182,44 @@ bool mult (STACK *s, char *token) {
  */
 bool divi (STACK *s, char *token) {
     if (strcmp(token, "/") == 0) {
-        char str[30];
         DATA dx = s->stack[s->sp];
         DATA dy = s->stack[s->sp-1];
         DATA d;
 
-        if (dx.type == LONG && dy.type == LONG) {
-            sprintf(str, "%ld", dy.elem.LONG / dx.elem.LONG); 
-            d = create_data(str, LONG);
-            pop(s);
-            pop(s);
-            push(s,d);
-            return true;
+        TYPE type1 = dx.type;
+        TYPE type2 = dy.type;
+
+        if (type1 == LONG) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.LONG;
+        }
+        if (type2 == LONG) {
+            dy.type = DOUBLE;
+            dy.elem.DOUBLE = dy.elem.LONG;
+        }
+
+        if (type1 == CHAR) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.CHAR;
+        }
+        if (type2 == CHAR) {
+            dy.type = DOUBLE;
+            dy.elem.DOUBLE = dy.elem.CHAR;
         }
 
         if (dx.type == DOUBLE && dy.type == DOUBLE) {
-            sprintf(str, "%g", dy.elem.DOUBLE / dx.elem.DOUBLE); 
-            d = create_data(str, DOUBLE);
             pop(s);
             pop(s);
-            push(s,d);
-            return true;
-        }
 
-        if (dx.type == LONG && dy.type == DOUBLE) {
-            double r = dy.elem.DOUBLE / dx.elem.LONG;
-            sprintf(str, "%g", r); 
-            d = create_data(str, DOUBLE);
-            pop(s);
-            pop(s);
-            push(s,d);
-            return true;
-        }
+            if (type1 == DOUBLE || type2 == DOUBLE) {
+                d.type = DOUBLE;
+                d.elem.DOUBLE = dy.elem.DOUBLE / dx.elem.DOUBLE;
+            }
+            else {
+                d.type = LONG;
+                d.elem.LONG = dy.elem.DOUBLE / dx.elem.DOUBLE;
+            }
 
-        if (dx.type == DOUBLE && dy.type == LONG) {
-            double r = dy.elem.LONG / dx.elem.DOUBLE;
-            sprintf(str, "%g", r); 
-            d = create_data(str, DOUBLE);
-            pop(s);
-            pop(s);
             push(s,d);
             return true;
         }
@@ -234,29 +236,36 @@ bool divi (STACK *s, char *token) {
  */
 bool dec (STACK *s, char *token) {
     if (strcmp(token, "(") == 0) {
-        char str[30];
         DATA dx = s->stack[s->sp];
         DATA d;
-        
-        if (dx.type == LONG) {
-            sprintf(str, "%ld", dx.elem.LONG - 1); 
-            d = create_data(str, LONG);
-            pop(s);
-            push(s,d);
-            return true;
+
+        TYPE type1 = dx.type;
+
+        if (type1 == LONG) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.LONG;
+        }
+        if (type1 == CHAR) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.CHAR;
         }
 
         if (dx.type == DOUBLE) {
-            sprintf(str, "%g", dx.elem.DOUBLE - 1.0); 
-            d = create_data(str, DOUBLE);
             pop(s);
-            push(s,d);
-            return true;
-        }
-        if (dx.type == CHAR) {
-            sprintf(str, "%c", dx.elem.CHAR - 1); 
-            d = create_data(str, CHAR);
-            pop(s);
+
+            if (type1 == DOUBLE) {
+                d.type = DOUBLE;
+                d.elem.DOUBLE = dx.elem.DOUBLE - 1;
+            }
+            else if (type1 == LONG) {
+                d.type = LONG;
+                d.elem.LONG = dx.elem.DOUBLE - 1;
+            }
+            else {
+                d.type = CHAR;
+                d.elem.CHAR = dx.elem.DOUBLE - 1;
+            }
+
             push(s,d);
             return true;
         }
@@ -273,29 +282,36 @@ bool dec (STACK *s, char *token) {
  */
 bool inc (STACK *s, char *token) {
     if (strcmp(token, ")") == 0) {
-        char str[30];
         DATA dx = s->stack[s->sp];
         DATA d;
-        
-        if (dx.type == LONG) {
-            sprintf(str, "%ld", dx.elem.LONG + 1); 
-            d = create_data(str, LONG);
-            pop(s);
-            push(s,d);
-            return true;
+
+        TYPE type1 = dx.type;
+
+        if (type1 == LONG) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.LONG;
+        }
+        if (type1 == CHAR) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.CHAR;
         }
 
         if (dx.type == DOUBLE) {
-            sprintf(str, "%g", dx.elem.DOUBLE + 1.0); 
-            d = create_data(str, DOUBLE);
             pop(s);
-            push(s,d);
-            return true;
-        }
-        if (dx.type == CHAR) {
-            sprintf(str, "%c", dx.elem.CHAR + 1); 
-            d = create_data(str, CHAR);
-            pop(s);
+
+            if (type1 == DOUBLE) {
+                d.type = DOUBLE;
+                d.elem.DOUBLE = dx.elem.DOUBLE + 1;
+            }
+            else if (type1 == LONG) {
+                d.type = LONG;
+                d.elem.LONG = dx.elem.DOUBLE + 1;
+            }
+            else {
+                d.type = CHAR;
+                d.elem.CHAR = dx.elem.DOUBLE + 1;
+            }
+
             push(s,d);
             return true;
         }
@@ -337,53 +353,44 @@ bool mod (STACK *s, char *token) {
  */
 bool expo (STACK *s, char *token) {
     if (strcmp(token, "#") == 0) {
-        char str[30];
         DATA dx = s->stack[s->sp];
         DATA dy = s->stack[s->sp-1];
         DATA d;
 
-        if (dx.type == LONG && dy.type == LONG) {
+        TYPE type1 = dx.type;
+        TYPE type2 = dy.type;
 
-            long int yy = pow(dy.elem.LONG, dx.elem.LONG);
+        if (type1 == LONG) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.LONG;
+        }
+        if (type2 == LONG) {
+            dy.type = DOUBLE;
+            dy.elem.DOUBLE = dy.elem.LONG;
+        }
 
-            sprintf(str, "%ld", yy); 
-            d = create_data(str, LONG);
-            pop(s);
-            pop(s);
-            push(s,d);
-            return true;
+        if (type1 == CHAR) {
+            dx.type = DOUBLE;
+            dx.elem.DOUBLE = dx.elem.CHAR;
+        }
+        if (type2 == CHAR) {
+            dy.type = DOUBLE;
+            dy.elem.DOUBLE = dy.elem.CHAR;
         }
 
         if (dx.type == DOUBLE && dy.type == DOUBLE) {
+            pop(s);
+            pop(s);
 
-            double yy = pow(dy.elem.DOUBLE, dx.elem.DOUBLE);
-            sprintf(str, "%g", yy); 
-            d = create_data(str, DOUBLE);
-            pop(s);
-            pop(s);
-            push(s,d);
-            return true;
-        }
+            if (type1 == DOUBLE || type2 == DOUBLE) {
+                d.type = DOUBLE;
+                d.elem.DOUBLE = pow(dy.elem.DOUBLE, dx.elem.DOUBLE);
+            }
+            else {
+                d.type = LONG;
+                d.elem.LONG = pow(dy.elem.DOUBLE, dx.elem.DOUBLE);
+            }
 
-        if (dx.type == LONG && dy.type == DOUBLE) {
-            
-            double yy = pow(dy.elem.DOUBLE,(double)dx.elem.LONG);
-            sprintf(str, "%g", yy); 
-            d = create_data(str, DOUBLE);
-            pop(s);
-            pop(s);
-            push(s,d);
-            return true;
-        }
-
-        if (dx.type == DOUBLE && dy.type == LONG) {
-
-            double yy = pow((double)dy.elem.LONG,dx.elem.DOUBLE);
-
-            sprintf(str, "%g", yy); 
-            d = create_data(str, DOUBLE);
-            pop(s);
-            pop(s);
             push(s,d);
             return true;
         }

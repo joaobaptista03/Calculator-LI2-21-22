@@ -27,19 +27,10 @@ bool if_command (STACK *s, char *token) {
 
         bool b = false;
 
-        if (top.type == CHAR) {
-            top.type = LONG;
-            top.elem.LONG = top.elem.CHAR;
-        }
-
-        if (top2.type == CHAR) {
-            top2.type = LONG;
-            top2.elem.LONG = top2.elem.CHAR;
-        }
-
-        if (top3.type == LONG || top3.type == DOUBLE) {
+        if (top3.type == LONG || top3.type == DOUBLE || top3.type == CHAR) {
             if (top3.type == LONG) b = top3.elem.LONG;
             if (top3.type == DOUBLE) b = top3.elem.DOUBLE;
+            if (top3.type == CHAR) b = top3.elem.CHAR;
 
             pop(s);
             pop(s);
@@ -69,24 +60,21 @@ bool higher2_command (STACK *s, char *token) {
         TYPE type = top1.type; 
         TYPE type2 = top2.type; 
 
+        if (type == LONG) {
+            top1.type = DOUBLE;
+            top1.elem.DOUBLE = top1.elem.LONG;
+        }
+        if (type2 == LONG) {
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.LONG;
+        }
         if (type == CHAR) {
-            top1.type = LONG;
-            top1.elem.LONG = top1.elem.CHAR;
+            top1.type = DOUBLE;
+            top1.elem.DOUBLE = top1.elem.CHAR;
         }
-
         if (type2 == CHAR) {
-            top2.type = LONG;
-            top2.elem.LONG = top2.elem.CHAR;
-        }
-
-        if (top1.type == LONG && top2.type == LONG) {
-            pop(s);
-            pop(s);
-            if (type == CHAR) top1.type = CHAR;
-            if (type2 == CHAR) top2.type = CHAR;
-            if (top1.elem.LONG > top2.elem.LONG) push(s,top1);
-            else push(s, top2);
-            return true;
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.CHAR;
         }
 
         if (top1.type == DOUBLE && top2.type == DOUBLE) {
@@ -95,26 +83,6 @@ bool higher2_command (STACK *s, char *token) {
             if (type == CHAR) top1.type = CHAR;
             if (type2 == CHAR) top2.type = CHAR;
             if (top1.elem.DOUBLE > top2.elem.DOUBLE) push(s,top1);
-            else push(s, top2);
-            return true;
-        }
-
-        if (top1.type == DOUBLE && top2.type == LONG) {
-            pop(s);
-            pop(s);
-            if (type == CHAR) top1.type = CHAR;
-            if (type2 == CHAR) top2.type = CHAR;
-            if (top1.elem.DOUBLE > top2.elem.LONG) push(s,top1);
-            else push(s, top2);
-            return true;
-        }
-
-        if (top1.type == LONG && top2.type == DOUBLE) {
-            pop(s);
-            pop(s);
-            if (type == CHAR) top1.type = CHAR;
-            if (type2 == CHAR) top2.type = CHAR;
-            if (top1.elem.LONG > top2.elem.DOUBLE) push(s,top1);
             else push(s, top2);
             return true;
         }
@@ -137,24 +105,21 @@ bool lower2_command (STACK *s, char *token) {
         TYPE type = top1.type; 
         TYPE type2 = top2.type; 
 
+        if (type == LONG) {
+            top1.type = DOUBLE;
+            top1.elem.DOUBLE = top1.elem.LONG;
+        }
+        if (type2 == LONG) {
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.LONG;
+        }
         if (type == CHAR) {
-            top1.type = LONG;
-            top1.elem.LONG = top1.elem.CHAR;
+            top1.type = DOUBLE;
+            top1.elem.DOUBLE = top1.elem.CHAR;
         }
-
         if (type2 == CHAR) {
-            top2.type = LONG;
-            top2.elem.LONG = top2.elem.CHAR;
-        }
-        
-        if (top1.type == LONG && top2.type == LONG) {
-            pop(s);
-            pop(s);
-            if (type == CHAR) top1.type = CHAR;
-            if (type2 == CHAR) top2.type = CHAR;
-            if (top1.elem.LONG < top2.elem.LONG) push(s,top1);
-            else push(s, top2);
-            return true;
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.CHAR;
         }
 
         if (top1.type == DOUBLE && top2.type == DOUBLE) {
@@ -163,26 +128,6 @@ bool lower2_command (STACK *s, char *token) {
             if (type == CHAR) top1.type = CHAR;
             if (type2 == CHAR) top2.type = CHAR;
             if (top1.elem.DOUBLE < top2.elem.DOUBLE) push(s,top1);
-            else push(s, top2);
-            return true;
-        }
-
-        if (top1.type == DOUBLE && top2.type == LONG) {
-            pop(s);
-            pop(s);
-            if (type == CHAR) top1.type = CHAR;
-            if (type2 == CHAR) top2.type = CHAR;
-            if (top1.elem.DOUBLE < top2.elem.LONG) push(s,top1);
-            else push(s, top2);
-            return true;
-        }
-
-        if (top1.type == LONG && top2.type == DOUBLE) {
-            pop(s);
-            pop(s);
-            if (type == CHAR) top1.type = CHAR;
-            if (type2 == CHAR) top2.type = CHAR;
-            if (top1.elem.LONG < top2.elem.DOUBLE) push(s,top1);
             else push(s, top2);
             return true;
         }
@@ -208,28 +153,41 @@ bool or_command (STACK *s, char *token) {
         bool b1 = false;
         bool b2 = false;
 
+        if (type == LONG) {
+            top.type = DOUBLE;
+            top.elem.DOUBLE = top.elem.LONG;
+        }
+
+        if (type2 == LONG) {
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.LONG;
+        }
+
         if (type == CHAR) {
-            top.type = LONG;
-            top.elem.LONG = top.elem.CHAR;
+            top.type = DOUBLE;
+            top.elem.DOUBLE = top.elem.CHAR;
         }
 
         if (type2 == CHAR) {
-            top2.type = LONG;
-            top2.elem.LONG = top2.elem.CHAR;
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.CHAR;
         }
         
-        if (top.type == LONG || top.type == DOUBLE) {
-            if (top.type == LONG) b1 = top.elem.LONG;
-            if (top.type == DOUBLE) b1 = top.elem.DOUBLE;
-
-            if (top2.type == LONG) b2 = top2.elem.LONG;
-            if (top2.type == DOUBLE) b2 = top2.elem.DOUBLE;
+        if (top.type == DOUBLE && top2.type == DOUBLE) {
+            b1 = top.elem.DOUBLE;
+            b2 = top2.elem.DOUBLE;
 
             pop(s);
             pop(s);
-            
-            if (type == CHAR) top.type = CHAR;
-            if (type2 == CHAR) top2.type = CHAR;
+
+            if (type == LONG) {
+                top.type = type;
+                top.elem.LONG = top.elem.DOUBLE;
+            }
+            if (type == CHAR) {
+                top2.type = type2;
+                top.elem.CHAR = top.elem.DOUBLE;
+            }
             
             if (b2) push(s, top2);
             else if (b1) push(s, top);
@@ -252,42 +210,55 @@ bool and_command (STACK *s, char *token) {
     if (strcmp(token, "e&") == 0) {
         DATA top = s->stack[s->sp];
         DATA top2 = s->stack[s->sp-1];
-        
+
         TYPE type = top.type; 
         TYPE type2 = top2.type; 
 
         bool b1 = false;
         bool b2 = false;
 
+        if (type == LONG) {
+            top.type = DOUBLE;
+            top.elem.DOUBLE = top.elem.LONG;
+        }
+
+        if (type2 == LONG) {
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.LONG;
+        }
+
         if (type == CHAR) {
-            top.type = LONG;
-            top.elem.LONG = top.elem.CHAR;
+            top.type = DOUBLE;
+            top.elem.DOUBLE = top.elem.CHAR;
         }
 
         if (type2 == CHAR) {
-            top2.type = LONG;
-            top2.elem.LONG = top2.elem.CHAR;
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.CHAR;
         }
         
-        if (top.type == LONG || top.type == DOUBLE) {
-            if (top.type == LONG) b1 = top.elem.LONG;
-            if (top.type == DOUBLE) b1 = top.elem.DOUBLE;
-
-            if (top2.type == LONG) b2 = top2.elem.LONG;
-            if (top2.type == DOUBLE) b2 = top2.elem.DOUBLE;
+        if (top.type == DOUBLE && top2.type == DOUBLE) {
+            b1 = top.elem.DOUBLE;
+            b2 = top2.elem.DOUBLE;
 
             pop(s);
             pop(s);
-
-            if (type == CHAR) top.type = CHAR;
-            if (type2 == CHAR) top2.type = CHAR;
-
+            
+            if (type == LONG) {
+                top.type = type;
+                top.elem.LONG = top.elem.DOUBLE;
+            }
+            if (type == CHAR) {
+                top2.type = type2;
+                top.elem.CHAR = top.elem.DOUBLE;
+            }
+            
             if (b1 && b2) push(s, top);
-            else push(s, create_data("0", 1));
+            else push(s, create_data("0", LONG));
 
             return true;
         }
-    }  
+    }
     return false;
 }
 
@@ -304,44 +275,28 @@ bool higher_command (STACK *s, char *token) {
         DATA top1 = s->stack[s->sp];
         DATA top2 = s->stack[s->sp-1];
 
+        if (top1.type == LONG) {
+            top1.type = DOUBLE;
+            top1.elem.DOUBLE = top1.elem.LONG;
+        }
+        if (top2.type == LONG) {
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.LONG;
+        }
+
         if (top1.type == CHAR) {
-            top1.type = LONG;
-            top1.elem.LONG = top1.elem.CHAR;
+            top1.type = DOUBLE;
+            top1.elem.DOUBLE = top1.elem.CHAR;
         }
-
         if (top2.type == CHAR) {
-            top2.type = LONG;
-            top2.elem.LONG = top2.elem.CHAR;
-        }
-
-        if (top1.type == LONG && top2.type == LONG) {
-            pop(s);
-            pop(s);
-            if (top1.elem.LONG < top2.elem.LONG) push(s, create_data("1", LONG));
-            else push(s, create_data("0", LONG));
-            return true;
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.CHAR;
         }
 
         if (top1.type == DOUBLE && top2.type == DOUBLE) {
             pop(s);
             pop(s);
             if (top1.elem.DOUBLE < top2.elem.DOUBLE) push(s,create_data("1", LONG));
-            else push(s, create_data("0", LONG));
-            return true;
-        }
-
-        if (top1.type == DOUBLE && top2.type == LONG) {
-            pop(s);
-            pop(s);
-            if (top1.elem.DOUBLE < top2.elem.LONG) push(s,create_data("1", LONG));
-            else push(s, create_data("0", LONG));
-            return true;
-        }
-
-        if (top1.type == LONG && top2.type == DOUBLE) {
-            pop(s);
-            pop(s);
-            if (top1.elem.LONG < top2.elem.DOUBLE) push(s,create_data("1", LONG));
             else push(s, create_data("0", LONG));
             return true;
         }
@@ -362,44 +317,28 @@ bool lower_command (STACK *s, char *token) {
         DATA top1 = s->stack[s->sp];
         DATA top2 = s->stack[s->sp-1];
 
+        if (top1.type == LONG) {
+            top1.type = DOUBLE;
+            top1.elem.DOUBLE = top1.elem.LONG;
+        }
+        if (top2.type == LONG) {
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.LONG;
+        }
+
         if (top1.type == CHAR) {
-            top1.type = LONG;
-            top1.elem.LONG = top1.elem.CHAR;
+            top1.type = DOUBLE;
+            top1.elem.DOUBLE = top1.elem.CHAR;
         }
-
         if (top2.type == CHAR) {
-            top2.type = LONG;
-            top2.elem.LONG = top2.elem.CHAR;
-        }
-
-        if (top1.type == LONG && top2.type == LONG) {
-            pop(s);
-            pop(s);
-            if (top1.elem.LONG > top2.elem.LONG) push(s, create_data("1", LONG));
-            else push(s, create_data("0", LONG));
-            return true;
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.CHAR;
         }
 
         if (top1.type == DOUBLE && top2.type == DOUBLE) {
             pop(s);
             pop(s);
             if (top1.elem.DOUBLE > top2.elem.DOUBLE) push(s,create_data("1", LONG));
-            else push(s, create_data("0", LONG));
-            return true;
-        }
-
-        if (top1.type == DOUBLE && top2.type == LONG) {
-            pop(s);
-            pop(s);
-            if (top1.elem.DOUBLE > top2.elem.LONG) push(s,create_data("1", LONG));
-            else push(s, create_data("0", LONG));
-            return true;
-        }
-
-        if (top1.type == LONG && top2.type == DOUBLE) {
-            pop(s);
-            pop(s);
-            if (top1.elem.LONG > top2.elem.DOUBLE) push(s,create_data("1", LONG));
             else push(s, create_data("0", LONG));
             return true;
         }
@@ -420,44 +359,28 @@ bool equal_command (STACK *s, char *token) {
         DATA top1 = s->stack[s->sp];
         DATA top2 = s->stack[s->sp-1];
 
+        if (top1.type == LONG) {
+            top1.type = DOUBLE;
+            top1.elem.DOUBLE = top1.elem.LONG;
+        }
+        if (top2.type == LONG) {
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.LONG;
+        }
+
         if (top1.type == CHAR) {
-            top1.type = LONG;
-            top1.elem.LONG = top1.elem.CHAR;
+            top1.type = DOUBLE;
+            top1.elem.DOUBLE = top1.elem.CHAR;
         }
-
         if (top2.type == CHAR) {
-            top2.type = LONG;
-            top2.elem.LONG = top2.elem.CHAR;
-        }
-
-        if (top1.type == LONG && top2.type == LONG) {
-            pop(s);
-            pop(s);
-            if (top1.elem.LONG == top2.elem.LONG) push(s, create_data("1", LONG));
-            else push(s, create_data("0", LONG));
-            return true;
+            top2.type = DOUBLE;
+            top2.elem.DOUBLE = top2.elem.CHAR;
         }
 
         if (top1.type == DOUBLE && top2.type == DOUBLE) {
             pop(s);
             pop(s);
             if (top1.elem.DOUBLE == top2.elem.DOUBLE) push(s,create_data("1", LONG));
-            else push(s, create_data("0", LONG));
-            return true;
-        }
-
-        if (top1.type == DOUBLE && top2.type == LONG) {
-            pop(s);
-            pop(s);
-            if (top1.elem.DOUBLE == top2.elem.LONG) push(s,create_data("1", LONG));
-            else push(s, create_data("0", LONG));
-            return true;
-        }
-
-        if (top1.type == LONG && top2.type == DOUBLE) {
-            pop(s);
-            pop(s);
-            if (top1.elem.LONG == top2.elem.DOUBLE) push(s,create_data("1", LONG));
             else push(s, create_data("0", LONG));
             return true;
         }

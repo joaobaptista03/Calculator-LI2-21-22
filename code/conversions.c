@@ -20,17 +20,11 @@
 bool i_command (STACK *s, char *token) {
     if (strcmp(token, "i") == 0) {
         TYPE type = s->stack[s->sp].type;
-        if (type == DOUBLE) {
-            double x = pop(s).elem.DOUBLE;
-            long int y = (long int)x;
-            sprintf(elem, "%ld", y);
-            push(s, create_data(elem, LONG));
-        }
-        if (type == CHAR) {
-            char x = pop(s).elem.CHAR;
-            sprintf(elem, "%i", x);
-            push(s, create_data(elem, LONG));
-        }
+
+        s->stack[s->sp].type = LONG;
+        if (type == DOUBLE) s->stack[s->sp].elem.LONG = s->stack[s->sp].elem.DOUBLE;
+        if (type == CHAR) s->stack[s->sp].elem.LONG = s->stack[s->sp].elem.CHAR;
+
         return true;
     }
     return false;
@@ -46,17 +40,12 @@ bool i_command (STACK *s, char *token) {
 bool f_command (STACK *s, char *token) {
     if (strcmp(token, "f") == 0) {
         TYPE type = s->stack[s->sp].type;
-        if (type == LONG) {
-            double x = (double)pop(s).elem.LONG;
-            sprintf(elem, "%g", x);
-            push(s, create_data(elem, DOUBLE));
-        }
-        if (type == CHAR) {
-            char x = pop(s).elem.CHAR;
-            sprintf(elem, "%g", (double)x);
-            push(s, create_data(elem, DOUBLE));
-        }
-    return true;
+
+        s->stack[s->sp].type = DOUBLE;
+        if (type == LONG) s->stack[s->sp].elem.DOUBLE = s->stack[s->sp].elem.LONG;
+        if (type == CHAR) s->stack[s->sp].elem.DOUBLE = s->stack[s->sp].elem.CHAR;
+
+        return true;
     }
     return false;
 }
@@ -105,7 +94,7 @@ bool s_command (STACK *s, char *token) {
             str[1] = '\0';
             push(s, create_data(str, STRING));
         }
-    return true;
+        return true;
     }
     return false;
 }
