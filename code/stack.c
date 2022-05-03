@@ -98,7 +98,7 @@ TYPE data_selector(char a[]) {
  * Esta é a função que cria a struct data, dada uma string (token).
  * 
  */
-DATA create_data (char a[], TYPE t) {
+DATA create_data (char *a, TYPE t) {
     char *p;
     DATA d;
     
@@ -119,7 +119,7 @@ DATA create_data (char a[], TYPE t) {
 
     if (t == STRING) { 
         d.type = STRING;
-        d.elem.STRING = a;
+        d.elem.STRING = strdup(a);
     }
 
     return d;

@@ -14,11 +14,11 @@
  * 
  */
 typedef enum {
-    LONG, /**<Se o tipo do elemento for Long Int, Type = 1*/
-    DOUBLE, /**<Se o tipo do elemento for Double, Type = 2*/
-    CHAR, /**<Se o tipo do elemento for Char, Type = 3*/ 
-    STRING, /**<Se o tipo do elemento for String, Type = 4*/
-    ARRAY, /**<Se o tipo do elemento for Array, Type = 5*/
+    LONG, /**<Se o tipo do elemento for Long Int*/
+    DOUBLE, /**<Se o tipo do elemento for Double*/
+    CHAR, /**<Se o tipo do elemento for Char*/ 
+    STRING, /**<Se o tipo do elemento for String*/
+    ARRAY, /**<Se o tipo do elemento for Array*/
 } TYPE ;
 
 /**

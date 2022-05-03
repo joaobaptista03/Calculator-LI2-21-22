@@ -46,7 +46,7 @@ void handle (STACK *s, char *token) {
     
     || SP_command(s, token) || V_commands(s, token)
 
-    || conc_strings(s, token)
+    || create_string(s, token) || conc_strings(s, token) || equal_strings(s, token)
     
     || val(s, token)) {};
 }
