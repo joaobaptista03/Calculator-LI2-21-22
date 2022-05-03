@@ -20,7 +20,7 @@
  * Executa as operações lidas usando as funções definidas nos outros ficheiros.  
  */
 int main() {
-    STACK *s = new_stack(1000); /** <Cria uma stack nova com um espaço para 1000 elementos */
+    STACK *s = new_stack(); /** <Cria uma stack nova com um espaço para 1000 elementos */
 
     char line[BUFSIZ]; /** <Array (String) onde vai ser guardada cada linha de input */
     char token[BUFSIZ]; /** <Array (String) onde vai ser guardado cada token */

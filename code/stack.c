@@ -17,8 +17,10 @@
  * Esta é a função que cria uma nova stack, dado um tamanho para essa stack.
  * 
  */
-STACK *new_stack(int size) {
-    STACK *s = malloc(size * sizeof(STACK));
+STACK *new_stack() {
+    STACK *s = (STACK *) calloc(1, sizeof(STACK));
+    s->size = 100;
+    s->stack = (DATA *) calloc(s->size, sizeof(DATA));
 
     /**As seguintes linhas de código estão a criar as DATA's referentes às variáveis A-Z**/
     s->alphabet[0] = create_data("10", LONG);

@@ -8,6 +8,7 @@
 #include "arraysstrings.h"
 
 #include <string.h>
+#include <stdio.h>
 
 /**
  *
@@ -22,9 +23,7 @@ bool conc_strings (STACK *s, char *token) {
         DATA dy = s->stack[s->sp-1];
         
         if (dx.type == STRING && dy.type == STRING) {
-            pop(s);
-            pop(s);
-            push(s, create_data(strcat(dx.elem.STRING, dy.elem.STRING), 4));
+            
             return true;
         }
     }

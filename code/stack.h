@@ -44,7 +44,8 @@ typedef struct data {
  * 
  */
 typedef struct stack {
-    DATA stack [1000]; /**<Array de DATA's que guarda os elementos e o tipo deles da stack*/
+    DATA *stack; /**<Array de DATA's que guarda os elementos e o tipo deles da stack*/
+    int size; //**<Tamanho da array stack*/
     DATA alphabet[26]; /**<Array de DATA's que guarda os elementos e o tipo deles das variáveis A-Z*/
     int sp; /**<Um apontador para o último elmento da stack*/
 } STACK;
@@ -54,7 +55,7 @@ typedef struct stack {
  * Este é o header da função que cria uma nova stack, dado um tamanho para essa stack.
  * 
  */
-STACK *new_stack(int size);
+STACK *new_stack();
 
 /**
  *
