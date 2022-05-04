@@ -47,7 +47,7 @@ bool point(char a[]) {
 int count_l(char a[]) {
     int l = 0;
     for (unsigned int i = 0; i < strlen(a); i++) {
-        if (a[i] == 'l' && a[i-1] == ' ' && a[i+1] == ' ') l++;
+        if (a[i] == 'l' && ( (a[i-1] == ' ' || a[i+1] == ' ') || (a[i+1] == '\n') ) ) l++;
     }
     return l;
 }

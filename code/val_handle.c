@@ -14,6 +14,7 @@
 #include "variables.h"
 #include "arraysstrings.h"
 #include "conversions.h"
+#include "input_output.h"
 
 
 /**
@@ -22,6 +23,7 @@
  * 
  */
 bool val (STACK *s, char *token) {
+    if (data_selector(token) == STRING) return true;
     push(s, create_data(token, data_selector(token)));
     return true;
 }
@@ -39,14 +41,15 @@ void handle (STACK *s, char *token) {
 
     || dup_command(s, token) || pop_command(s, token) || exchange_command(s, token) || rotate_command(s, token) || copy_command(s, token)
 
-    || i_command(s, token) || f_command(s, token) || c_command(s, token) || s_command(s, token)
+    || i_command(s, token) || f_command(s, token) || c_command(s, token) || s_command(s, token) || l_command(s, token)
     
     || equal_command(s, token) || lower_command(s, token) || higher_command(s, token) || no_command(s, token)
     || and_command(s, token) || or_command(s, token) || lower2_command(s, token) || higher2_command(s, token) || if_command(s, token) 
     
     || SP_command(s, token) || V_commands(s, token)
 
-    || create_string(s, token) || conc_strings(s, token) || equal_strings(s, token)
+    || create_string(s, token) || conc_as(s, token) || create_array(token) || equal_as(s, token) || mult_as(s, token) || init_as(s, token)
+    || last_as(s, token)
     
     || val(s, token)) {};
 }

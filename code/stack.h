@@ -8,6 +8,8 @@
 #ifndef STACK_H
 #define STACK_H
 
+typedef struct stack STACK;
+
 /**
  *
  * Este typedef enumera o tipo do elemento:
@@ -30,11 +32,11 @@ typedef struct data {
     TYPE type; /**<Guarda o tipo do elemento*/
 
     union elem { /**<Union que guarda o elemento dependendo do tipo*/
-        long LONG; /**<Guarda o valor em Long Int caso o Type == 1*/
-        double DOUBLE; /**<Guarda o valor em Double caso o Type == 2*/
-        char CHAR; /**<Guarda o valor em Char caso o Type == 3*/
-        char* STRING; /**<Guarda o valor em String caso o Type == 4*/
-        //ARRAY /**<Guarda o valor em Array caso o Type == 5*/
+        long LONG; /**<Guarda o valor em Long Int*/
+        double DOUBLE; /**<Guarda o valor em Double*/
+        char CHAR; /**<Guarda o valor em Char*/
+        char* STRING; /**<Guarda o valor em String*/
+        struct STACK* ARRAY; /**<Guarda o valor em Array*/
     } elem;
 } DATA;
 
