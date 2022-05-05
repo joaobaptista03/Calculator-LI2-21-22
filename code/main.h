@@ -8,11 +8,10 @@
 #define MAIN
 
 #include "stack.h"
-#include "random_funcs.h"
 
 #include <stdio.h>
 
-int l; /** <Variável que conta quantos l's existem em line */
+int l;
 
 char line[BUFSIZ]; /** <Array (String) onde vai ser guardada cada linha de input */
 

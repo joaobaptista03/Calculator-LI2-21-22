@@ -10,6 +10,8 @@
 
 typedef struct stack STACK;
 
+#include <stdbool.h>
+
 /**
  *
  * Este typedef enumera o tipo do elemento:
@@ -36,7 +38,7 @@ typedef struct data {
         double DOUBLE; /**<Guarda o valor em Double*/
         char CHAR; /**<Guarda o valor em Char*/
         char* STRING; /**<Guarda o valor em String*/
-        struct STACK* ARRAY; /**<Guarda o valor em Array*/
+        STACK* ARRAY; /**<Guarda o valor em Array*/
     } elem;
 } DATA;
 
@@ -92,6 +94,6 @@ DATA create_data (char a[], TYPE t);
  * Este é o header da função que dá print à stack.
  * 
  */
-void print_stack (STACK *s);
+void print_stack (STACK *s, bool a);
 
 #endif

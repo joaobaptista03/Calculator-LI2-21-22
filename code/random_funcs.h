@@ -29,6 +29,6 @@ bool point(char a[]);
  * Este é o header da função que, dada uma string, calcula quantos 'l' existem nela.
  * 
  */
-int count_l(char a[]);
+int count_l(char a[], int N);
 
 #endif

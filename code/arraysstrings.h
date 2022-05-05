@@ -23,15 +23,6 @@ bool create_string (STACK *s, char *token);
 
 /**
  *
- * Este é o header da função que executa a operação [] para strings e arrays, dada a stack e caso os tokens sejam " [] ".
- * 
- * A operação [] cria uma array.
- * 
- */
-bool create_array (char *token);
-
-/**
- *
  * Esta é a função que executa a operação +, dada a stack, caso o token seja + e os tipos dos 2 elementos do topo da stack forem STRING/ARRAY.
  * 
  * A operação + concatena 2 strings ou arrays.
@@ -76,5 +67,7 @@ bool init_as (STACK *s, char *token);
  * 
  */
 bool last_as (STACK *s, char *token);
+
+bool range(STACK *s, char *token);
 
 #endif

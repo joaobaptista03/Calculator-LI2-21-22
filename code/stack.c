@@ -19,7 +19,7 @@
  */
 STACK *new_stack() {
     STACK *s = (STACK *) calloc(1, sizeof(STACK));
-    s->size = 100;
+    s->size = 1000;
     s->stack = (DATA *) calloc(s->size, sizeof(DATA));
 
     /**As seguintes linhas de código estão a criar as DATA's referentes às variáveis A-Z**/
@@ -121,6 +121,11 @@ DATA create_data (char *a, TYPE t) {
         d.type = STRING;
         d.elem.STRING = strdup(a);
     }
+    if (t == ARRAY) { 
+        d.type = ARRAY;
+        d.elem.ARRAY = new_stack();
+    }
+    
 
     return d;
 }
@@ -130,7 +135,7 @@ DATA create_data (char *a, TYPE t) {
  * Esta é a função que dá print à stack.
  * 
  */
-void print_stack (STACK *s) {
+void print_stack (STACK *s, bool a) {
     for (int i = 0; i <= s->sp; i++) {
         if (s->stack[i].type == LONG) {
             printf("%ld", s->stack[i].elem.LONG);
@@ -146,6 +151,9 @@ void print_stack (STACK *s) {
         if (s->stack[i].type == STRING) {
             printf("%s", s->stack[i].elem.STRING);
         }
+        if (s->stack[i].type == ARRAY) {
+            print_stack(s->stack[i].elem.ARRAY, true);
+        }
     }
-    printf("\n");
+    if (!a) printf("\n");
 }

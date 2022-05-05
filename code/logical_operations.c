@@ -86,6 +86,17 @@ bool higher2_command (STACK *s, char *token) {
             else push(s, top2);
             return true;
         }
+        if (top1.type == STRING && top2.type == STRING) {
+            pop(s);
+            pop(s);
+
+            int cmp = strcmp(top1.elem.STRING, top2.elem.STRING);
+
+            if (cmp >= 0) push(s, top1);
+            else push(s, top2);
+
+            return true;
+        }
     }
     return false;
 }
@@ -129,6 +140,17 @@ bool lower2_command (STACK *s, char *token) {
             if (type2 == CHAR) top2.type = CHAR;
             if (top1.elem.DOUBLE < top2.elem.DOUBLE) push(s,top1);
             else push(s, top2);
+            return true;
+        }
+        if (top1.type == STRING && top2.type == STRING) {
+            pop(s);
+            pop(s);
+
+            int cmp = strcmp(top1.elem.STRING, top2.elem.STRING);
+
+            if (cmp >= 0) push(s, top2);
+            else push(s, top1);
+
             return true;
         }
     }

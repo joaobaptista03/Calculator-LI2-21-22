@@ -24,6 +24,7 @@
  */
 bool val (STACK *s, char *token) {
     if (data_selector(token) == STRING) return true;
+    if (data_selector(token) == CHAR) return true;
     push(s, create_data(token, data_selector(token)));
     return true;
 }
@@ -34,6 +35,7 @@ bool val (STACK *s, char *token) {
  * 
  */
 void handle (STACK *s, char *token) {
+    
     if (
        add(s, token) || sub(s, token) || mult(s, token) || divi(s, token)
     || dec(s, token) || inc (s, token) || mod(s, token) || expo (s, token) 
@@ -48,8 +50,8 @@ void handle (STACK *s, char *token) {
     
     || SP_command(s, token) || V_commands(s, token)
 
-    || create_string(s, token) || conc_as(s, token) || create_array(token) || equal_as(s, token) || mult_as(s, token) || init_as(s, token)
-    || last_as(s, token)
+    || create_string(s, token) || conc_as(s, token) || equal_as(s, token) || mult_as(s, token) || init_as(s, token)
+    || last_as(s, token) || range(s, token)
     
     || val(s, token)) {};
 }

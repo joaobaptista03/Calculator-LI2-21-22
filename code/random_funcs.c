@@ -8,6 +8,7 @@
 #include "random_funcs.h"
 
 #include <string.h>
+#include <stdio.h>
 
 /**
  *
@@ -44,10 +45,14 @@ bool point(char a[]) {
  * Este é a função que, dada uma string, calcula quantos 'l' existem nela.
  * 
  */
-int count_l(char a[]) {
-    int l = 0;
-    for (unsigned int i = 0; i < strlen(a); i++) {
-        if (a[i] == 'l' && ( (a[i-1] == ' ' || a[i+1] == ' ') || (a[i+1] == '\n') ) ) l++;
+int count_l(char a[], int N) {
+    char linerep[N];
+    strcpy(linerep, a);
+    char token[BUFSIZ];
+    int count = 0;
+    while (sscanf (linerep, "%s %[^\n]", token, linerep) == 2) {
+        if (strcmp(token, "l") == 0) count++;
     }
-    return l;
+    if (strcmp(token, "l") == 0) count++;
+    return count;
 }

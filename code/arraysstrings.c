@@ -6,6 +6,7 @@
  */
 
 #include "arraysstrings.h"
+#include "val_handle.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -36,20 +37,6 @@ bool create_string (STACK *s, char *token) {
     return false;
 }
 
-/**
- *
- * Este é o header da função que executa a operação [] para strings e arrays, dada a stack e caso os tokens sejam " [] ".
- * 
- * A operação [] cria uma array.
- * 
- */
-bool create_array (char *token) {
-    if (strcmp(token, "[") == 0 || strcmp(token, "]") == 0) {
-        return true;
-    }
-    return false;
-}
-
 
 /**
  *
@@ -63,6 +50,19 @@ bool conc_as (STACK *s, char *token) {
         DATA dx = s->stack[s->sp];
         DATA dy = s->stack[s->sp-1];
         
+        if (dx.type == CHAR) {
+            dx.type = STRING;
+            dx.elem.STRING = malloc(8);
+            dx.elem.STRING[0] = dx.elem.CHAR;
+            dx.elem.STRING[1] = '\0';
+        }
+        if (dy.type == CHAR) {
+            dy.type = STRING;
+            dy.elem.STRING = malloc(8);
+            dy.elem.STRING[0] = dy.elem.CHAR;
+            dy.elem.STRING[1] = '\0';
+        }
+
         if (dx.type == STRING && dy.type == STRING) {
             pop(s);
             pop(s);
@@ -192,6 +192,21 @@ bool last_as (STACK *s, char *token) {
             else push(s, create_data("1", LONG));
             return true;
         }
+    }
+    return false;
+}
+
+bool range(STACK *s, char *token) {
+    if (strcmp(token, ",") == 0) {
+        DATA d = pop(s);
+
+        for (int i = 0; i < d.elem.LONG; i++) {
+            char stringdata[30];
+            sprintf(stringdata, "%d", i);
+            push(s, create_data(stringdata, LONG));
+        }
+
+        return true;
     }
     return false;
 }
