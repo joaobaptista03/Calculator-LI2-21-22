@@ -77,6 +77,33 @@ bool init_as (STACK *s, char *token);
  */
 bool last_as (STACK *s, char *token);
 
+/**
+ *
+ * Esta é a função que executa a operação ",", dada a stack, caso o token seja ,
+ * 
+ * Se o elemento do topo for CHAR, converte o mesmo para LONG.
+ * Se o elemento do topo for LONG, a operação devolve para a stack uma array que contém os números de 0 até ao elemento.
+ * Se o elemento do topo for STRING ou ARRAY, devolve para a stack o tamanho da mesma.
+ * 
+ */
 bool range(STACK *s, char *token);
+
+/**
+ *
+ * Esta é a função que executa a operação (, dada a stack, caso o token seja ( e o tipo do elemento do topo da stack for STRING/ARRAY.
+ * 
+ * A operação ( para STRINGS e ARRAYS irá retirar o primeiro elemento da mesma, dando lhe push.
+ * 
+ */
+bool rem_init (STACK *s, char *token);
+
+/**
+ *
+ * Esta é a função que executa a operação ), dada a stack, caso o token seja ) e o tipo do elemento do topo da stack for STRING/ARRAY.
+ * 
+ * A operação ) para STRINGS e ARRAYS irá retirar o último elemento da mesma, dando lhe push.
+ * 
+ */
+bool rem_last (STACK *s, char *token);
 
 #endif

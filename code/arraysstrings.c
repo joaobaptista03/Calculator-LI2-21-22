@@ -137,7 +137,7 @@ bool conc_as (STACK *s, char *token) {
  *
  * Esta é a função que executa a operação =, dada a stack, caso o token seja = e os tipos dos 2 elementos do topo da stack forem STRING/ARRAY e LONG.
  * 
- * A operação = irá buscar um valor por índice
+ * A operação = irá buscar um valor por índice.
  * 
  */
 bool equal_as (STACK *s, char *token) {
@@ -273,17 +273,112 @@ bool last_as (STACK *s, char *token) {
     return false;
 }
 
+/**
+ *
+ * Esta é a função que executa a operação ",", dada a stack, caso o token seja ,
+ * 
+ * Se o elemento do topo for CHAR, converte o mesmo para LONG.
+ * Se o elemento do topo for LONG, a operação devolve para a stack uma array que contém os números de 0 até ao elemento.
+ * Se o elemento do topo for STRING ou ARRAY, devolve para a stack o tamanho da mesma.
+ * 
+ */
 bool range(STACK *s, char *token) {
     if (strcmp(token, ",") == 0) {
-        DATA d = pop(s);
+        DATA d = s->stack[s->sp];
 
-        for (int i = 0; i < d.elem.LONG; i++) {
-            char stringdata[30];
-            sprintf(stringdata, "%d", i);
-            push(s, create_data(stringdata, LONG));
+        if (d.type == CHAR) {
+            long char1 = d.elem.CHAR;
+            d.type = LONG;
+            d.elem.LONG = char1;
+        }
+
+        if (d.type == LONG) {
+            pop(s);
+            DATA a = create_data("", ARRAY);
+
+            for (int i = 0; i < d.elem.LONG; i++) {
+                char val[BUFSIZ];
+                sprintf(val, "%d", i);
+                DATA temp = create_data(val, LONG);
+                push(a.elem.ARRAY, temp);
+            }
+            push(s, a);
+        }
+        if (d.type == STRING) {
+            pop(s);
+            int len = strlen(d.elem.STRING);
+            char val[BUFSIZ];
+            sprintf(val, "%d", len);
+
+            push(s, create_data(val, LONG));
+        }
+        if (d.type == ARRAY) {
+            pop(s);
+            int len = d.elem.ARRAY->sp + 1;
+            char val[BUFSIZ];
+            sprintf(val, "%d", len);
+
+            push(s, create_data(val, LONG));
         }
 
         return true;
+    }
+    return false;
+}
+
+
+/**
+ *
+ * Esta é a função que executa a operação (, dada a stack, caso o token seja ( e o tipo do elemento do topo da stack for STRING/ARRAY.
+ * 
+ * A operação ( para STRINGS e ARRAYS irá retirar o primeiro elemento da mesma, dando lhe push.
+ * 
+ */
+bool rem_init (STACK *s, char *token) {
+    DATA d = s->stack[s->sp];
+    
+    if (strcmp(token, "(") == 0) {
+        if (d.type == STRING) {
+            char first[2];
+            first[0] = d.elem.STRING[0];
+            first[1] = '\0';
+
+            for (unsigned int i = 0; i < strlen(d.elem.STRING); i++) {
+                d.elem.STRING[i] = d.elem.STRING[i+1];
+            }
+
+            DATA a = create_data(first, CHAR);
+            push(s, a);
+
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação ), dada a stack, caso o token seja ) e o tipo do elemento do topo da stack for STRING/ARRAY.
+ * 
+ * A operação ) para STRINGS e ARRAYS irá retirar o último elemento da mesma, dando lhe push.
+ * 
+ */
+bool rem_last (STACK *s, char *token) {
+    DATA d = s->stack[s->sp];
+    
+    if (strcmp(token, ")") == 0) {
+        if (d.type == STRING) {
+            char last[2];
+            last[0] = d.elem.STRING[strlen(d.elem.STRING) - 1];
+            last[1] = '\0';
+
+            d.elem.STRING[strlen(d.elem.STRING) - 1] = '\0';
+
+            DATA a = create_data(last, CHAR);
+            push(s, a);
+
+            return true;
+        }
     }
     return false;
 }
