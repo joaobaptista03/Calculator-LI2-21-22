@@ -7,6 +7,7 @@
 
 #include "arraysstrings.h"
 #include "val_handle.h"
+#include "main.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -14,7 +15,7 @@
 
 /**
  *
- * Este é o header da função que executa a operação "" para strings e arrays, dada a stack e caso os tokens sejam " " ".
+ * Este é o header da função que executa a operação "" para strings, dada a stack e caso os tokens sejam " " ".
  * 
  * A operação "" cria uma string.
  * 
@@ -37,6 +38,32 @@ bool create_string (STACK *s, char *token) {
     return false;
 }
 
+/**
+ *
+ * Este é o header da função que executa a operação [] para arrays, dada a stack e caso os tokens sejam " [] ".
+ * 
+ * A operação [] cria uma array.
+ * 
+ */
+bool create_array (STACK *s, char *token) {
+    if (strcmp(token, "[") == 0) {
+        strcpy (token, "\0");
+        DATA a = create_data("", ARRAY);
+        char line2[BUFSIZ];
+        char token2[BUFSIZ];
+        
+        while (sscanf (line2, "%s %[^]] %[^\n]", token2, line2, line) == 3) {
+            handle(a.elem.ARRAY, token2);
+        }
+        handle(a.elem.ARRAY, token2);
+        handle(a.elem.ARRAY, line2);
+
+        push(s, a);
+
+        return true;
+    }
+    return false;
+}
 
 /**
  *
@@ -51,15 +78,17 @@ bool conc_as (STACK *s, char *token) {
         DATA dy = s->stack[s->sp-1];
         
         if (dx.type == CHAR) {
+            char x = dx.elem.CHAR;
             dx.type = STRING;
             dx.elem.STRING = malloc(8);
-            dx.elem.STRING[0] = dx.elem.CHAR;
+            dx.elem.STRING[0] = x;
             dx.elem.STRING[1] = '\0';
         }
         if (dy.type == CHAR) {
+            char y = dy.elem.CHAR;
             dy.type = STRING;
             dy.elem.STRING = malloc(8);
-            dy.elem.STRING[0] = dy.elem.CHAR;
+            dy.elem.STRING[0] = y;
             dy.elem.STRING[1] = '\0';
         }
 
@@ -72,15 +101,29 @@ bool conc_as (STACK *s, char *token) {
             free(dx.elem.STRING);
             return true;
         }
+        if (dx.type == ARRAY && dy.type == ARRAY) {
+            pop(s);
+            pop(s);
+            
+            dy.elem.ARRAY->stack = realloc(dy.elem.ARRAY->stack, (dy.elem.ARRAY->sp + dx.elem.ARRAY->sp + 2) * 4);
+
+            int j = 0;
+            for (int i = dy.elem.ARRAY->sp + 1; i < dy.elem.ARRAY->sp + dx.elem.ARRAY->sp + 2; i++) {
+                dy.elem.ARRAY->stack[i] = dx.elem.ARRAY->stack[j];
+                j++;
+            }
+
+            return true;
+        }
     }
     return false;
 }
 
 /**
  *
- * Esta é a função que executa a operação =, dada a stack, caso o token seja = e os tipos dos 2 elementos do topo da stack forem STRING/ARRAY.
+ * Esta é a função que executa a operação =, dada a stack, caso o token seja = e os tipos dos 2 elementos do topo da stack forem STRING/ARRAY e LONG.
  * 
- * A operação = testa se 2 strings são iguais.
+ * A operação = irá buscar um valor por índice
  * 
  */
 bool equal_as (STACK *s, char *token) {
@@ -88,12 +131,33 @@ bool equal_as (STACK *s, char *token) {
         DATA dx = s->stack[s->sp];
         DATA dy = s->stack[s->sp-1];
         
-        if (dx.type == STRING && dy.type == STRING) {
+        if (dx.type == LONG && dy.type == STRING) {
             pop(s);
             pop(s);
-            if (dx.elem.STRING[0] != dy.elem.STRING[0]) push(s, create_data("0", LONG));
-            else if (strcmp (dx.elem.STRING, dy.elem.STRING) == 0) push(s, create_data("1", LONG));
-            else push(s, create_data("0", LONG));
+            char x = '\0';
+
+            for (long int i = 0; i <= dx.elem.LONG ; i++) {
+                x = dy.elem.STRING[i];
+            }
+
+            char strpush[] = {x, '\0'};
+
+            push(s, create_data(strpush, CHAR));
+
+            return true;
+        }
+        if (dx.type == LONG && dy.type == ARRAY) {
+            pop(s);
+            pop(s);
+            printf("frvedff");
+            DATA x = create_data(0, LONG);
+
+            for (long int i = 0; i <= dx.elem.LONG ; i++) {
+                x = dy.elem.ARRAY->stack[i];
+            }
+
+            push(s, x);
+
             return true;
         }
     }

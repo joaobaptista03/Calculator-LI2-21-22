@@ -14,12 +14,21 @@
 
 /**
  *
- * Este é o header da função que executa a operação "" para strings e arrays, dada a stack e caso os tokens sejam " " ".
+ * Este é o header da função que executa a operação "" para strings, dada a stack e caso os tokens sejam " " ".
  * 
  * A operação "" cria uma string.
  * 
  */
 bool create_string (STACK *s, char *token);
+
+/**
+ *
+ * Este é o header da função que executa a operação [] para arrays, dada a stack e caso os tokens sejam " [] ".
+ * 
+ * A operação [] cria uma array.
+ * 
+ */
+bool create_array (STACK *s, char *token);
 
 /**
  *

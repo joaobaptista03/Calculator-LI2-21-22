@@ -13,6 +13,8 @@
 
 int l;
 
+char token[BUFSIZ]; /** <Array (String) onde vai ser guardado cada token */
+
 char line[BUFSIZ]; /** <Array (String) onde vai ser guardada cada linha de input */
 
 char reads[1000][30]; /** <Array de DATA's que vai guardar cada elemento dado pelas linhas lidas do comando l */

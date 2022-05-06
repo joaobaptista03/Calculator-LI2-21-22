@@ -37,19 +37,7 @@ int main() {
 
     l = 0;
     while (sscanf (line, "%s %[^\n]", token, line) == 2) { /** <Linha que, para cada token de line, chama a função handle para o mesmo */
-        
-        if (strcmp (token, "[") == 0) {
-            strcpy (token, "\0");
-            DATA a = create_data("", ARRAY);
-            char line2[BUFSIZ];
-            char token2[BUFSIZ];
-
-            while (sscanf (line2, "%s %[^]] %[^\n]", token2, line2, line) == 3) handle(a.elem.ARRAY, token2);
-            handle(a.elem.ARRAY, token2);
-
-            push(s, a);
-        }
-        else handle (s, token);
+        handle (s, token);
     }
     handle (s, token);
     print_stack(s, false); /** <Linha que dá print à stack */

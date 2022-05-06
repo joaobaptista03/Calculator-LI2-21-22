@@ -406,6 +406,14 @@ bool equal_command (STACK *s, char *token) {
             else push(s, create_data("0", LONG));
             return true;
         }
+        if (top1.type == STRING && top2.type == STRING) {
+            pop(s);
+            pop(s);
+            if (top1.elem.STRING[0] != top2.elem.STRING[0]) push(s, create_data("0", LONG));
+            else if (strcmp (top1.elem.STRING, top2.elem.STRING) == 0) push(s, create_data("1", LONG));
+            else push(s, create_data("0", LONG));
+            return true;
+        }
     }
     return false;
 }

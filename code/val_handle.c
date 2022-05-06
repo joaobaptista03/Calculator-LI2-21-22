@@ -50,7 +50,7 @@ void handle (STACK *s, char *token) {
     
     || SP_command(s, token) || V_commands(s, token)
 
-    || create_string(s, token) || conc_as(s, token) || equal_as(s, token) || mult_as(s, token) || init_as(s, token)
+    || create_string(s, token) || create_array(s, token) || conc_as(s, token) || equal_as(s, token) || mult_as(s, token) || init_as(s, token)
     || last_as(s, token) || range(s, token)
     
     || val(s, token)) {};
