@@ -50,13 +50,13 @@ bool create_array (STACK *s, char *token) {
         strcpy (token, "\0");
         DATA a = create_data("", ARRAY);
         char line2[BUFSIZ];
+        strcpy(line2, line);
         char token2[BUFSIZ];
         
-        while (sscanf (line2, "%s %[^]] %[^\n]", token2, line2, line) == 3) {
+        while (sscanf (line2, "%s %[^]] %[^\n]", token2, line2, line) >= 2) {
             handle(a.elem.ARRAY, token2);
         }
         handle(a.elem.ARRAY, token2);
-        handle(a.elem.ARRAY, line2);
 
         push(s, a);
 
@@ -105,13 +105,27 @@ bool conc_as (STACK *s, char *token) {
             pop(s);
             pop(s);
             
-            dy.elem.ARRAY->stack = realloc(dy.elem.ARRAY->stack, (dy.elem.ARRAY->sp + dx.elem.ARRAY->sp + 2) * 4);
+            int len = dx.elem.ARRAY->sp + 1 + dy.elem.ARRAY->sp + 1;
+            DATA array[len];
 
+            for (int i = 0; i < dy.elem.ARRAY->sp + 1; i++) {
+                array[i] = dy.elem.ARRAY->stack[i];
+            }
             int j = 0;
-            for (int i = dy.elem.ARRAY->sp + 1; i < dy.elem.ARRAY->sp + dx.elem.ARRAY->sp + 2; i++) {
-                dy.elem.ARRAY->stack[i] = dx.elem.ARRAY->stack[j];
+            for (int i = dy.elem.ARRAY->sp + 1; i < len; i++) {
+                array[i] = dx.elem.ARRAY->stack[j];
                 j++;
             }
+
+            DATA arraypush = create_data("", ARRAY);
+            
+            for (int i = 0; i < len; i++) {
+                arraypush.elem.ARRAY->stack[i] = array[i];
+            }
+
+            arraypush.elem.ARRAY->sp = len - 1;
+
+            push(s, arraypush);
 
             return true;
         }
@@ -149,8 +163,7 @@ bool equal_as (STACK *s, char *token) {
         if (dx.type == LONG && dy.type == ARRAY) {
             pop(s);
             pop(s);
-            printf("frvedff");
-            DATA x = create_data(0, LONG);
+            DATA x = create_data("0", LONG);
 
             for (long int i = 0; i <= dx.elem.LONG ; i++) {
                 x = dy.elem.ARRAY->stack[i];
