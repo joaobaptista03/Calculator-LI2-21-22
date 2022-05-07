@@ -136,4 +136,22 @@ bool substringsep (STACK *s, char *token);
 
 bool t_command (STACK *s, char *token);
 
+/**
+ *
+ * Esta é a função que executa a operação N/, dada a stack, caso o token seja N/ e o tipo do elemento do topo da stack for STRING.
+ * 
+ * A operação N/ para STRING irá separar uma STRING por \n's.
+ * 
+ */
+bool substringnewline (STACK *s, char *token);
+
+/**
+ *
+ * Esta é a função que executa a operação S/, dada a stack, caso o token seja S/ e o tipo do elemento do topo da stack for STRING.
+ * 
+ * A operação S/ para STRING irá separar uma STRING por espaços em branco.
+ * 
+ */
+bool substringwp (STACK *s, char *token);
+
 #endif

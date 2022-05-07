@@ -52,7 +52,7 @@ void handle (STACK *s, char *token) {
 
     || create_string(s, token) || create_array(s, token) || conc_as(s, token) || equal_as(s, token) || mult_as(s, token) || init_as(s, token)
     || last_as(s, token) || range(s, token) || rem_init(s, token) || rem_last(s, token) || putarray(s, token) || substring(s, token)
-    || substringsep(s, token) || t_command(s, token)
+    || substringsep(s, token) || t_command(s, token) || substringnewline(s, token) || substringwp(s, token)
     
     || val(s, token)) {};
 }

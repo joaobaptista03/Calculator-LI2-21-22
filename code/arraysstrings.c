@@ -491,8 +491,8 @@ bool substring (STACK *s, char *token) {
             pop(s);
             pop(s);
             char var[BUFSIZ];
-            char *result = strstr(d1.elem.STRING, d2.elem.STRING);
-            int pos = result - d1.elem.STRING;
+            char *result = strstr(d2.elem.STRING, d1.elem.STRING);
+            int pos = result - d2.elem.STRING;
 
             if (result != NULL) {
                 sprintf(var, "%d", pos);   
@@ -521,13 +521,12 @@ bool substringsep (STACK *s, char *token) {
                 pop(s);
                 pop(s);
                 DATA a = create_data("", ARRAY);
-                while (strstr(d2.elem.STRING, d1.elem.STRING)) {
+                while (strtok(d2.elem.STRING, d1.elem.STRING)) {
                     char *token = strtok(d2.elem.STRING, d1.elem.STRING);
                     push(a.elem.ARRAY, create_data(token, STRING));
                     int length = strlen(token) + strlen(d1.elem.STRING);
                     for (int i = 0; i < length; i++) d2.elem.STRING++;
                 }
-                push(a.elem.ARRAY, create_data(d2.elem.STRING, STRING));
 
                 push(s, a);
                return true;
@@ -539,17 +538,61 @@ bool substringsep (STACK *s, char *token) {
 bool t_command (STACK *s, char *token) {
         if (strcmp(token, "t") == 0) {
             char linet[BUFSIZ];
-
             char linepush[BUFSIZ];
+            linepush[0] = '\0';
 
             while (fgets(linet, BUFSIZ, stdin)) {
-                linepush[strlen(linepush)] = '\n';
-                memcpy(&linepush[strlen(linepush)], linet, strlen(linet));
+                strcat(linepush, linet);
             }
+            linepush[strlen(linepush)] = '\0';
 
             push(s, create_data(linepush, STRING));
-            
+
         return true;
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação N/, dada a stack, caso o token seja N/ e o tipo do elemento do topo da stack for STRING.
+ * 
+ * A operação N/ para STRING irá separar uma STRING por \n's.
+ * 
+ */
+bool substringnewline (STACK *s, char *token) {
+        if (strcmp(token, "N/") == 0) {
+            DATA d = s->stack[s->sp];
+            
+            if (d.type == STRING) {
+                push(s, create_data("\\n", STRING));
+
+                substringsep(s, "/");
+
+               return true;
+            }
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação S/, dada a stack, caso o token seja S/ e o tipo do elemento do topo da stack for STRING.
+ * 
+ * A operação S/ para STRING irá separar uma STRING por espaços em branco.
+ * 
+ */
+bool substringwp (STACK *s, char *token) {
+        if (strcmp(token, "S/") == 0) {
+            DATA d = s->stack[s->sp];
+            
+            if (d.type == STRING) {
+                push(s, create_data(" ", STRING));
+
+                substringsep(s, "/");
+
+               return true;
+            }
     }
     return false;
 }
