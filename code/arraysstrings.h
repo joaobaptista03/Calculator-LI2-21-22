@@ -52,7 +52,7 @@ bool equal_as (STACK *s, char *token);
  *
  * Esta é a função que executa a operação *, dada a stack, caso o token seja *, o elemento do topo for LONG e o segundo for STRING/ARRAY.
  * 
- * A operação * concatena a mesma string várias vezes.
+ * A operação * concatena a mesma STRING/ARRAY várias vezes.
  * 
  */
 bool mult_as (STACK *s, char *token);
@@ -105,5 +105,35 @@ bool rem_init (STACK *s, char *token);
  * 
  */
 bool rem_last (STACK *s, char *token);
+
+/**
+ *
+ * Esta é a função que executa a operação ~, dada a stack, caso o token seja ~ e o tipo do elemento do topo da stack for ARRAY.
+ * 
+ * A operação ~ para ARRAYS irá colocar na stack todos os elementos da ARRAY.
+ * 
+ */
+bool putarray (STACK *s, char *token);
+
+/**
+ *
+ * Esta é a função que executa a operação #, dada a stack, caso o token seja # e o tipo dos 2 elementos do topo da stack for STRING.
+ * 
+ * A operação # para STRING irá procurar uma substring na string, e devolver o índice onde ela começa, caso contrário devolve -1.
+ * 
+ */
+bool substring (STACK *s, char *token);
+
+/**
+ *
+ * Esta é a função que executa a operação /, dada a stack, caso o token seja / e o tipo dos 2 elementos do topo da stack for STRING.
+ * 
+ * A operação / para STRING irá separar uma STRING por um delimitador em várias substrings.
+ * 
+ */
+bool substringsep (STACK *s, char *token);
+
+
+bool t_command (STACK *s, char *token);
 
 #endif

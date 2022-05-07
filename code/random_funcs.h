@@ -26,9 +26,23 @@ bool point(char a[]);
 
 /**
  *
- * Este é o header da função que, dada uma string, calcula quantos 'l' existem nela.
+ * Este é o header da função que, dada uma string, calcula quantos tokens 'l' existem nela.
  * 
  */
 int count_l(char a[], int N);
+
+/**
+ *
+ * Este é a função que, dada uma string, remove o primeiro elemento.
+ * 
+ */
+void removefirst (char *a);
+
+/**
+ *
+ * Este é a função que, dada uma string, devolve o índice do char dado.
+ * 
+ */
+int search(char a[], char b);
 
 #endif

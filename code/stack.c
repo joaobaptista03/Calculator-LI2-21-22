@@ -126,7 +126,6 @@ DATA create_data (char *a, TYPE t) {
         d.elem.ARRAY = new_stack();
     }
     
-
     return d;
 }
 

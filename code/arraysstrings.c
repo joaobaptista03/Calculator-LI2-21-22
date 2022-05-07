@@ -8,6 +8,7 @@
 #include "arraysstrings.h"
 #include "val_handle.h"
 #include "main.h"
+#include "random_funcs.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -181,7 +182,7 @@ bool equal_as (STACK *s, char *token) {
  *
  * Esta é a função que executa a operação *, dada a stack, caso o token seja *, o elemento do topo for LONG e o segundo for STRING/ARRAY.
  * 
- * A operação * concatena a mesma string várias vezes.
+ * A operação * concatena a mesma STRING/ARRAY várias vezes.
  * 
  */
 bool mult_as (STACK *s, char *token) {
@@ -205,6 +206,25 @@ bool mult_as (STACK *s, char *token) {
             free(new_str);
             return true;
         }
+        if (dx.type == LONG && dy.type == ARRAY) {
+            pop(s);
+            pop(s);
+
+            DATA a = create_data("", ARRAY);
+
+            for(int i = 0; i <= dy.elem.ARRAY->sp; i++) {
+                a.elem.ARRAY->stack[i] = dy.elem.ARRAY->stack[i];
+            }
+
+            a.elem.ARRAY->sp = dy.elem.ARRAY->sp;
+            
+            for(long i = 1; i < dx.elem.LONG; i++) { 
+                memcpy(a.elem.ARRAY->stack + a.elem.ARRAY->sp + 1, dy.elem.ARRAY->stack, (dy.elem.ARRAY->sp + 1) * sizeof(DATA));
+                a.elem.ARRAY->sp += (dy.elem.ARRAY->sp + 1);
+            }
+            push(s, a);
+            return true;
+        }   
     }
     return false;
 }
@@ -231,6 +251,22 @@ bool init_as (STACK *s, char *token) {
                 new_arr[dx.elem.LONG] = '\0';
                 push(s, create_data(new_arr, STRING));
                 free(new_arr);
+            }
+            else push(s, create_data("0", LONG));
+            return true;
+        }
+        if (dy.type == ARRAY) {
+            pop(s);
+            pop(s);
+            if (dx.type == LONG) {
+                DATA a = create_data("", ARRAY);
+
+                a.elem.ARRAY->sp = dx.elem.LONG - 1;
+
+                for (int i = 0; i < dx.elem.LONG; i++) {
+                    a.elem.ARRAY->stack[i] = dy.elem.ARRAY->stack[i];
+                }
+                push(s, a);
             }
             else push(s, create_data("0", LONG));
             return true;
@@ -267,6 +303,24 @@ bool last_as (STACK *s, char *token) {
                 free(new_arr);
             }
             else push(s, create_data("1", LONG));
+            return true;
+        }
+        if (dy.type == ARRAY) {
+            pop(s);
+            pop(s);
+            if (dx.type == LONG) {
+                DATA a = create_data("", ARRAY);
+
+                a.elem.ARRAY->sp = dx.elem.LONG - 1;
+                
+                int j = 0;
+                for (int i = dy.elem.ARRAY->sp + 1 - dx.elem.LONG; i < dy.elem.ARRAY->sp + 1; i++) {
+                    a.elem.ARRAY->stack[j] = dy.elem.ARRAY->stack[i];
+                    j++;
+                }
+                push(s, a);
+            }
+            else push(s, create_data("0", LONG));
             return true;
         }
     }
@@ -334,20 +388,31 @@ bool range(STACK *s, char *token) {
  * A operação ( para STRINGS e ARRAYS irá retirar o primeiro elemento da mesma, dando lhe push.
  * 
  */
-bool rem_init (STACK *s, char *token) {
-    DATA d = s->stack[s->sp];
-    
+bool rem_init (STACK *s, char *token) {   
     if (strcmp(token, "(") == 0) {
+        DATA d = s->stack[s->sp];
         if (d.type == STRING) {
             char first[2];
             first[0] = d.elem.STRING[0];
             first[1] = '\0';
 
             for (unsigned int i = 0; i < strlen(d.elem.STRING); i++) {
-                d.elem.STRING[i] = d.elem.STRING[i+1];
+                s->stack[s->sp].elem.STRING[i] = s->stack[s->sp].elem.STRING[i+1];
             }
 
             DATA a = create_data(first, CHAR);
+            push(s, a);
+
+            return true;
+        }
+        if (d.type == ARRAY) {
+            DATA a = d.elem.ARRAY->stack[0];
+
+            for (int i = 0; i < d.elem.ARRAY->sp; i++) {
+                s->stack[s->sp].elem.ARRAY->stack[i] = s->stack[s->sp].elem.ARRAY->stack[i+1];
+            }
+            s->stack[s->sp].elem.ARRAY->sp--;
+
             push(s, a);
 
             return true;
@@ -363,10 +428,9 @@ bool rem_init (STACK *s, char *token) {
  * A operação ) para STRINGS e ARRAYS irá retirar o último elemento da mesma, dando lhe push.
  * 
  */
-bool rem_last (STACK *s, char *token) {
-    DATA d = s->stack[s->sp];
-    
+bool rem_last (STACK *s, char *token) {   
     if (strcmp(token, ")") == 0) {
+        DATA d = s->stack[s->sp];
         if (d.type == STRING) {
             char last[2];
             last[0] = d.elem.STRING[strlen(d.elem.STRING) - 1];
@@ -379,6 +443,113 @@ bool rem_last (STACK *s, char *token) {
 
             return true;
         }
+        if (d.type == ARRAY) {
+            DATA a = d.elem.ARRAY->stack[d.elem.ARRAY->sp];
+            s->stack[s->sp].elem.ARRAY->sp--;
+            push(s, a);
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação ~, dada a stack, caso o token seja ~ e o tipo do elemento do topo da stack for ARRAY.
+ * 
+ * A operação ~ para ARRAYS irá colocar na stack todos os elementos da ARRAY.
+ * 
+ */
+bool putarray (STACK *s, char *token) {
+    if (strcmp(token, "~") == 0) {
+        DATA d = s->stack[s->sp];
+
+        if (d.type == ARRAY) {
+            pop(s);
+            for (int i = 0; i <= d.elem.ARRAY->sp; i++) {
+                push(s, d.elem.ARRAY->stack[i]);
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação #, dada a stack, caso o token seja # e o tipo dos 2 elementos do topo da stack for STRING.
+ * 
+ * A operação # para STRING irá procurar uma substring na string, e devolver o índice onde ela começa, caso contrário devolve -1.
+ * 
+ */
+bool substring (STACK *s, char *token) {
+        if (strcmp(token, "#") == 0) {
+        DATA d1 = s->stack[s->sp];
+        DATA d2 = s->stack[s->sp-1];
+
+        if (d1.type == STRING && d2.type == STRING) {
+            pop(s);
+            pop(s);
+            char var[BUFSIZ];
+            char *result = strstr(d1.elem.STRING, d2.elem.STRING);
+            int pos = result - d1.elem.STRING;
+
+            if (result != NULL) {
+                sprintf(var, "%d", pos);   
+                push(s, create_data(var, LONG));
+            }
+            else push(s, create_data("-1", LONG));
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ *
+ * Esta é a função que executa a operação /, dada a stack, caso o token seja / e o tipo dos 2 elementos do topo da stack for STRING.
+ * 
+ * A operação / para STRING irá separar uma STRING por um delimitador em várias substrings.
+ * 
+ */
+bool substringsep (STACK *s, char *token) {
+        if (strcmp(token, "/") == 0) {
+            DATA d1 = s->stack[s->sp];
+            DATA d2 = s->stack[s->sp-1];
+            
+            if (d1.type == STRING && d2.type == STRING) {
+                pop(s);
+                pop(s);
+                DATA a = create_data("", ARRAY);
+                while (strstr(d2.elem.STRING, d1.elem.STRING)) {
+                    char *token = strtok(d2.elem.STRING, d1.elem.STRING);
+                    push(a.elem.ARRAY, create_data(token, STRING));
+                    int length = strlen(token) + strlen(d1.elem.STRING);
+                    for (int i = 0; i < length; i++) d2.elem.STRING++;
+                }
+                push(a.elem.ARRAY, create_data(d2.elem.STRING, STRING));
+
+                push(s, a);
+               return true;
+            }
+    }
+    return false;
+}
+
+bool t_command (STACK *s, char *token) {
+        if (strcmp(token, "t") == 0) {
+            char linet[BUFSIZ];
+
+            char linepush[BUFSIZ];
+
+            while (fgets(linet, BUFSIZ, stdin)) {
+                linepush[strlen(linepush)] = '\n';
+                memcpy(&linepush[strlen(linepush)], linet, strlen(linet));
+            }
+
+            push(s, create_data(linepush, STRING));
+            
+        return true;
     }
     return false;
 }

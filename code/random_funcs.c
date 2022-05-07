@@ -42,7 +42,7 @@ bool point(char a[]) {
 
 /**
  *
- * Este é a função que, dada uma string, calcula quantos 'l' existem nela.
+ * Este é a função que, dada uma string, calcula quantos tokens 'l' existem nela.
  * 
  */
 int count_l(char a[], int N) {
@@ -55,4 +55,16 @@ int count_l(char a[], int N) {
     }
     if (strcmp(token, "l") == 0) count++;
     return count;
+}
+
+/**
+ *
+ * Este é a função que, dada uma string, devolve o índice do char dado.
+ * 
+ */
+int search(char a[], char b) {
+    for (unsigned int i = 0; i < strlen(a); i++) {
+        if (a[i] == b) return i;
+    }
+    return -1;
 }

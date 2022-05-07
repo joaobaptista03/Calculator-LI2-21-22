@@ -37,6 +37,17 @@ int main() {
 
     l = 0;
     while (sscanf (line, "%s %[^\n]", token, line) == 2) { /** <Linha que, para cada token de line, chama a função handle para o mesmo */
+        /*
+        if (token[0] == '\"') {
+            char trash[BUFSIZ];
+            int indline = search(line, '\"');
+            int i = 0;
+            for (unsigned int j = strlen(token); j < strlen(token) + indline; j++, i++) {
+                token[j] = line[i];
+            }
+            sscanf(line, "%[^\"] %c %[^\n]", trash, trash, line);
+        }
+        */
         handle (s, token);
     }
     handle (s, token);
