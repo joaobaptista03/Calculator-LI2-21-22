@@ -1,7 +1,7 @@
 # Stack-Based Language Interpreter
 
 ## Overview
-This project implements a stack-based language interpreter in C. It's designed to read and execute a series of operations on a stack, handling various data types and operations including mathematical calculations, logical operations, stack manipulations, variable handling, and more.
+This university project implements a stack-based language interpreter in C. It's designed to read and execute a series of operations on a stack, handling various data types and operations including mathematical calculations, logical operations, stack manipulations, variable handling, and more.
 
 ## Features
 - **Custom Stack Implementation**: Handles a stack data structure for storing and manipulating data.
